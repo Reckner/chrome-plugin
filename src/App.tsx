@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CompaniesList from './containers/CompaniesList';
+
 const MockData: Company[] = [
     {
         name: 'DANISH MINDSET ApS',
@@ -87,7 +89,13 @@ interface Company {
 export default function App() {
     return (
         <div className="extension-wrapper">
-            <div className="companies-wrapper">
+            <input
+                className="form-control"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+            />
+            <CompaniesList>
                 {MockData.map(company => {
                     return (
                         <Company
@@ -99,7 +107,7 @@ export default function App() {
                         />
                     );
                 })}
-            </div>
+            </CompaniesList>
         </div>
     );
 }

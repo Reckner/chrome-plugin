@@ -24,36 +24,39 @@ body {
     width: 100%;
     height: 100%;
     background-color: #edf0f3c0;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    .companies-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        height: 90%;
-        overflow: scroll;
-        padding: 4px;
-        border: 1px dashed rgba(0, 0, 0, 0.329);
-        .company-wrapper {
-            margin: 4px;
-            padding: 8px;
-            width: 95%;
-            height: min-content;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid black;
+}
 
-            p {
-                margin-bottom: 4px;
-            }
+.form-control {
+    height: 50px;
+    width: 94%;
+    border-radius: 7px;
+    border: 1px solid darkgray;
 
-            p,
-            h3 {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-            }
-        }
+    &:focus {
+        border-color: unset;
+        box-shadow: unset;
+    }
+}
+
+.company-wrapper {
+    margin: 4px;
+    padding: 8px;
+    width: 95%;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+
+    p {
+        margin-bottom: 4px;
+    }
+
+    p,
+    h3 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
