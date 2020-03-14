@@ -1,8 +1,10 @@
 import React from 'react';
 
 import CompaniesList from './containers/CompaniesList';
+import Company from './components/Company';
+import { ICompany } from './models/Company';
 
-const MockData: Company[] = [
+const MockData: ICompany[] = [
     {
         name: 'DANISH MINDSET ApS',
         cvr: 35660275,
@@ -75,16 +77,16 @@ const MockData: Company[] = [
     },
 ];
 
-interface Company {
-    name: string;
-    cvr: number;
-    address: string;
-    postal_code_and_city: string;
-    start_date: string;
-    status: string;
-    business_type: string;
-    advertising_protection: string;
-}
+// interface Company {
+//     name: string;
+//     cvr: number;
+//     address: string;
+//     postal_code_and_city: string;
+//     start_date: string;
+//     status: string;
+//     business_type: string;
+//     advertising_protection: string;
+// }
 
 export default function App() {
     return (
@@ -112,19 +114,19 @@ export default function App() {
     );
 }
 
-const Company = ({ name, address, postal_code_and_city, cvr }) => {
-    return (
-        <div className="company-wrapper">
-            <div className="company-data">
-                <h3>{name}</h3>
-                <p>
-                    {address}, {postal_code_and_city}
-                </p>
-                <p>CVR {cvr}</p>
-            </div>
-            <button className="add-button">
-                +
-            </button>
-        </div>
-    );
-};
+// const Company = ({ name, address, postal_code_and_city, cvr }) => {
+//     return (
+//         <div className="company-wrapper">
+//             <div className="company-data">
+//                 <h3>{name}</h3>
+//                 <p>
+//                     {address}, {postal_code_and_city}
+//                 </p>
+//                 <p>CVR {cvr}</p>
+//             </div>
+//             <button className="add-button">
+//                 +
+//             </button>
+//         </div>
+//     );
+// };

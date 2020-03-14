@@ -1,9 +1,10 @@
 {
-    "name": "CRM_Chrome_Plugin",
+    "name": "crm_chrome_plugin",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
         "autoprefixer": "^9.7.4",
+        "axios": "^0.19.2",
         "bootstrap": "^4.3.1",
         "classnames": "^2.2.6",
         "jquery": "^3.4.1",
@@ -39,6 +40,7 @@
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.12.1",
+        "@types/axios": "^0.14.0",
         "@types/classnames": "^2.2.9",
         "@types/react": "^16.9.19",
         "@types/react-dom": "^16.9.5",

@@ -1,25 +1,17 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+    "short_name": "CRM Plugin",
+    "name": "CRM Plugin",
+    "manifest_version": 2,
+    "version": "1.0",
+    "description": "CRM Plugin to import Companies from Danish company register to Pipedrive",
+    "icons": {
+        "16": "factory_16.png",
+        "48": "factory_48.png",
+        "128": "factory_128.png"
     },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_title": "CRM Plugin"
     },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "content_security_policy": "script-src 'self' 'sha256-cfMsESQnd7Prfv+sGNxCTWNdHAaaMWT30gq4TROU70s='; object-src 'self'"
 }
