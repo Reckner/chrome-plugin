@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    chrome-plugin:
+        container_name: 'crm_chrome_plugin'
+        environment:
+            PORT: '5777'
+            NODE_ENV: 'development'
+        build: .
+        ports:
+            - '5777:5777'
+        volumes:
+            - .:/usr/src/app

@@ -115,11 +115,16 @@ export default function App() {
 const Company = ({ name, address, postal_code_and_city, cvr }) => {
     return (
         <div className="company-wrapper">
-            <h3>{name}</h3>
-            <p>
-                {address}, {postal_code_and_city}
-            </p>
-            <p>CVR {cvr}</p>
+            <div className="company-data">
+                <h3>{name}</h3>
+                <p>
+                    {address}, {postal_code_and_city}
+                </p>
+                <p>CVR {cvr}</p>
+            </div>
+            <button className="add-button">
+                +
+            </button>
         </div>
     );
 };
