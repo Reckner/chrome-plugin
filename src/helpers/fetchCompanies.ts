@@ -4,7 +4,7 @@ import { ICompany } from '../models/Company';
 import jsdom from 'jsdom';
 const { JSDOM } = jsdom;
 
-export async function fetchCompanies(search: string) {
+export async function fetchCompanies(search: string): Promise<ICompany[]> {
     const response = await axios.get(
         `https://cors-anywhere.herokuapp.com/https://datacvr.virk.dk/data/visninger?soeg=${search}&oprettet=null&ophoert=null&branche=&type=undefined&language=da`,
     );

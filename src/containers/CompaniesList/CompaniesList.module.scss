@@ -9,3 +9,16 @@
     box-shadow: 0 0 0 0.1rem rgba(8, 9, 10, 0.027);
     overflow-x: hidden;
 }
+
+.companiesWrapperLoader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+    overflow: scroll;
+    padding: 4px;
+    box-shadow: 0 0 0 0.1rem rgba(8, 9, 10, 0.027);
+    overflow-x: hidden;
+}
