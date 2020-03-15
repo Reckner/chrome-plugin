@@ -1,5 +1,6 @@
 export interface IButton {
     appearance?: string,
-    children: string,
-    onClick: any,
+    children: any,
+    className?: string,
+    onClick?: any,
 }
