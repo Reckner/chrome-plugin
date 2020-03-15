@@ -13,5 +13,5 @@
         "default_popup": "index.html",
         "default_title": "CRM Plugin"
     },
-    "content_security_policy": "script-src 'self' 'sha256-cfMsESQnd7Prfv+sGNxCTWNdHAaaMWT30gq4TROU70s='; object-src 'self'"
+    "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-cfMsESQnd7Prfv+sGNxCTWNdHAaaMWT30gq4TROU70s='; object-src 'self'"
 }
