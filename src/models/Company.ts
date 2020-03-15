@@ -5,6 +5,6 @@ export interface ICompany {
     postal_code_and_city?: string;
     start_date?: string;
     status?: string;
-    business_type?: string;
+    type?: string;
     advertising_protection?: string;
 }
