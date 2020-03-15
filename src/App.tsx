@@ -36,8 +36,10 @@ export default function App() {
             />
             <CompaniesList>
                 {isLoading && showLoader ? (
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinnerWrapper">
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
                     </div>
                 ) : (
                     companies.map(company => {
