@@ -1,4 +1,4 @@
-export interface ICompany {
+export interface ICompanyContainer {
     name?: string;
     cvr?: string;
     address?: string;

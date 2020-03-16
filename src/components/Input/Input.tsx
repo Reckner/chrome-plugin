@@ -13,7 +13,7 @@ const Input: React.FC<MInput> = ({
     placeholder,
     type,
 }) => {
-    const classes = classnames('form-control', className, 'shadow-none');
+    const classes = classnames('form-control', className);
 
     return (
         <div className={classnames('form-group', containerClassName)}>

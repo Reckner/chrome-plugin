@@ -1,15 +1,15 @@
 import React from 'react';
-import { ICompany } from '../../models/Company';
-import createCompanyInPipedrive from '../../api/create-company';
+import { ICompanyContainer } from '../../../models/Company';
+import createCompanyInPipedrive from '../../../api/create-company';
 import classnames from 'classnames';
 
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 
 const addButton = async name => {
     await createCompanyInPipedrive({ name });
 };
 
-const Company: React.FC<ICompany> = ({
+const CompanyContainer: React.FC<ICompanyContainer> = ({
     name,
     address,
     postal_code_and_city,
@@ -24,11 +24,15 @@ const Company: React.FC<ICompany> = ({
                 </p>
                 <p className="mb-0">CVR {cvr}</p>
             </div>
-            <Button appearance="success" className='p-3' onClick={() => addButton(name)}>
+            <Button
+                appearance="success"
+                className="p-3"
+                onClick={() => addButton(name)}
+            >
                 +
             </Button>
         </div>
     );
 };
 
-export default Company;
+export default CompanyContainer;

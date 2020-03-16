@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { ICompany } from '../models/Company';
+import { ICompanyContainer } from '../models/Company';
 
 import jsdom from 'jsdom';
 const { JSDOM } = jsdom;
 
-export async function fetchCompanies(search: string): Promise<ICompany[]> {
+export async function fetchCompanies(
+    search: string,
+): Promise<ICompanyContainer[]> {
     const response = await axios.get(
         `https://cors-anywhere.herokuapp.com/https://datacvr.virk.dk/data/visninger?soeg=${search}&oprettet=null&ophoert=null&branche=&type=undefined&language=da`,
     );
@@ -12,7 +14,7 @@ export async function fetchCompanies(search: string): Promise<ICompany[]> {
     const dom = new JSDOM(response.data);
     const companiesNodes = dom.window.document.querySelectorAll('.item.virk');
 
-    const companies: ICompany[] = [];
+    const companies: ICompanyContainer[] = [];
 
     for (const cNode of companiesNodes) {
         companies.push({
