@@ -1,6 +1,6 @@
 export interface ICompany {
     name?: string;
-    cvr?: number;
+    cvr?: string;
     address?: string;
     postal_code_and_city?: string;
     start_date?: string;
