@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import CompaniesList from './containers/CompaniesList';
-import { Company, Button, Input } from './components';
+import { Company, Button, Input, Loader } from './components';
 import { ICompany } from './models/Company';
-import data from './mock.json';
 import { fetchCompanies } from './helpers/fetchCompanies';
 import { SettingsIcon } from './assets/images';
 
@@ -27,27 +26,24 @@ export default function App() {
     };
 
     return (
-        <div className="d-flex flex-column p-4">
-            <div className="d-flex pb-3">
+        <div className="d-flex flex-column py-3 pl-3 h-100">
+            <div className="d-flex pb-3 pr-3">
                 <Input
                     id="search"
                     name="search"
                     type="search"
-                    containerClassName="w-100 mb-0"
+                    containerClassName="w-100 mb-0 shadow-sm"
+                    onChange={handleSearch}
                 />
-                <Button className="align-self-end ml-3 p-0 my-auto">
+                <Button className="align-self-end ml-4 p-0 my-auto">
                     <SettingsIcon />
                 </Button>
             </div>
-            <CompaniesList>
-                {isLoading && showLoader ? (
-                    <div className="spinnerWrapper">
-                        <div className="spinner-border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                ) : (
-                    companies.map(company => {
+            {isLoading && showLoader ? (
+                <Loader />
+            ) : (
+                <CompaniesList>
+                    {companies.map(company => {
                         return (
                             <Company
                                 key={company.cvr}
@@ -59,9 +55,9 @@ export default function App() {
                                 cvr={company.cvr}
                             />
                         );
-                    })
-                )}
-            </CompaniesList>
+                    })}
+                </CompaniesList>
+            )}
         </div>
     );
 }

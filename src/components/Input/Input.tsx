@@ -9,6 +9,7 @@ const Input: React.FC<MInput> = ({
     label,
     labelClassName,
     name,
+    onChange,
     placeholder,
     type,
 }) => {
@@ -27,6 +28,7 @@ const Input: React.FC<MInput> = ({
                 name={name}
                 placeholder={placeholder}
                 type={type}
+                onChange={onChange}
             />
         </div>
     );

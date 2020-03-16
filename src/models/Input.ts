@@ -5,6 +5,7 @@ export interface MInput {
     label?: string;
     labelClassName?: string;
     name: string;
+    onChange?: any;
     placeholder?: string;
     type: string;
 }
