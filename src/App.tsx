@@ -26,8 +26,8 @@ export default function App() {
     };
 
     return (
-        <div className="d-flex flex-column py-3 pl-3 h-100">
-            <div className="d-flex pb-3 pr-3">
+        <div className="d-flex flex-column py-4 pl-4 h-100">
+            <div className="d-flex pb-4 pr-4">
                 <Input
                     id="search"
                     name="search"
