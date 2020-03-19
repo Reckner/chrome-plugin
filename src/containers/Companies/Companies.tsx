@@ -7,19 +7,29 @@ import { SettingsIcon } from '../../assets/images';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [showLoader, setShowLoader] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleSearch = async e => {
-        e.preventDefault();
-        if (e.target.value?.length > 2) {
-            setIsLoading(true);
-            setShowLoader(true);
-            setCompanies(await fetchCompanies(e.target.value));
+    const handleSearch = e => {
+        e.persist();
+        const search = document.querySelector('#search');
+        search?.addEventListener('keyup', function(this) {
+            // clears timeout before starting new one
+            clearTimeout(this.timeoutKeyUp);
+
+            // creating new timeout
+            this.timeoutKeyUp = setTimeout(function() {
+                handleRequest(e);
+            }, 500);
+        });
+    };
+
+    const handleRequest = async e => {
+        const { value: input } = e.target;
+        if (input?.length > 2) {
+            setCompanies(await fetchCompanies(input));
             setIsLoading(false);
         } else {
             setIsLoading(false);
-            setShowLoader(false);
             setCompanies([]);
         }
     };
@@ -43,7 +53,7 @@ export default function Companies({ switchPage }) {
                     <SettingsIcon />
                 </Button>
             </div>
-            {isLoading && showLoader ? (
+            {isLoading ? (
                 <Loader />
             ) : (
                 <Company.CompanyList>

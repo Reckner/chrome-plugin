@@ -5,8 +5,13 @@ import classnames from 'classnames';
 
 import Button from '../../Button/Button';
 
-const addButton = async name => {
-    await createCompanyInPipedrive({ name });
+const addButton = async ({ name, cvr, address, postal_code_and_city }) => {
+    await createCompanyInPipedrive({
+        name,
+        cvr,
+        address,
+        postal_code_and_city,
+    });
 };
 
 const CompanyContainer: React.FC<ICompanyContainer> = ({
@@ -27,7 +32,9 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             <Button
                 appearance="success"
                 className="p-3"
-                onClick={() => addButton(name)}
+                onClick={() =>
+                    addButton({ name, cvr, address, postal_code_and_city })
+                }
             >
                 +
             </Button>
