@@ -1,19 +1,12 @@
-import React, { memo, useState } from 'react';
-import Companies from './containers/Companies/Companies';
-import ApiSetup from './containers/ApiSetup/ApiSetup';
+import React, { memo } from 'react';
+import { Private, Public } from './Layout';
 
 function App() {
-    const [page, setPage] = useState('default');
-
-    function switchPage(page) {
-        setPage(page);
-    }
-
-    switch (page) {
-        case 'ApiSetup':
-            return <ApiSetup switchPage={switchPage} />;
+    switch (!localStorage.getItem('Api')) {
+        case false:
+            return <Private />;
         default:
-            return <Companies switchPage={switchPage} />;
+            return <Public />;
     }
 }
 

@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { MInput } from '../../models/Input';
+import { IInput } from '../../models/Input';
 import classnames from 'classnames';
 
-const Input: React.FC<MInput> = ({
+const Input: React.FC<IInput> = ({
     className,
     containerClassName,
     id,
@@ -12,6 +12,8 @@ const Input: React.FC<MInput> = ({
     onChange,
     placeholder,
     type,
+    value,
+    disabled,
 }) => {
     const classes = classnames('form-control', className);
 
@@ -26,9 +28,11 @@ const Input: React.FC<MInput> = ({
                 className={classes}
                 id={id}
                 name={name}
+                onChange={onChange}
                 placeholder={placeholder}
                 type={type}
-                onChange={onChange}
+                value={value}
+                disabled={disabled}
             />
         </div>
     );

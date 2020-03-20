@@ -1,4 +1,4 @@
-export interface MInput {
+export interface IInput {
     className?: string;
     containerClassName?: string;
     id: string;
@@ -8,4 +8,6 @@ export interface MInput {
     onChange?: any;
     placeholder?: string;
     type: string;
+    value?: any;
+    disabled?: any;
 }
