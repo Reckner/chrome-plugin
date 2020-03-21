@@ -22,5 +22,5 @@ export const getKeysFromPipedrive = async () => {
         }
     }
 
-    saveKeysToLocalStorage(keys);
+    return keys;
 };
