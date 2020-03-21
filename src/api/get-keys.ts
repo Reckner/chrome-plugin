@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { getKeyFromLocalStorage } from '../helpers/getKeys';
-import { saveKeysToLocalStorage } from '../helpers/saveKeys';
 
 const token = '9352e66cf5185840cdd3dc97a1a06bf9efac2192';
 
-export const getKeysFromPipedrive = async () => {
+const getKeysFromPipedrive = async () => {
     const response = await axios.get(`https://app.pipedrive.com/api/v1/organizationFields?api_token=${token}`);
     const { data:fields } = response.data;
 
@@ -24,3 +22,5 @@ export const getKeysFromPipedrive = async () => {
 
     return keys;
 };
+
+export default getKeysFromPipedrive;
