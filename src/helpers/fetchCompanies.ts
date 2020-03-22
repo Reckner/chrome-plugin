@@ -19,8 +19,8 @@ export async function fetchCompanies(
     for (const cNode of companiesNodes) {
         companies.push({
             name: cNode.querySelector('.name a')?.innerHTML,
-            cvr: cNode.querySelector('.cvr')?.querySelectorAll('p')[1]
-                ?.innerHTML,
+            cvr: parseInt(cNode.querySelector('.cvr')?.querySelectorAll('p')[1]
+                ?.innerHTML || ''),
             status: cNode.querySelector('.status')?.querySelectorAll('p')[1]
                 ?.innerHTML,
             type: cNode.querySelector('.type')?.querySelectorAll('p')[1]
