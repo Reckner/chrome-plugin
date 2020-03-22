@@ -75,7 +75,7 @@ export default function Companies({ switchPage }) {
                     <Input
                         id="search"
                         name="search"
-                        type="search"
+                        type="text"
                         containerClassName="w-100 mb-0 shadow-sm"
                         className="shadow-sm"
                         onChange={handleSearch}
