@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import classnames from 'classnames';
 import { Input, Button, Container } from '../../components';
 import { CloseIcon } from '../../assets/images';
+import saveKeysToLocalStorage from '../../helpers/saveKeys'
 
 interface ApiSetup {
     switchPage?: any;
@@ -17,10 +18,11 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
         setState({ Api: evt.target.value });
     }
 
-    const handleSave = e => {
+    const handleSave = async e => {
         e.preventDefault();
 
         localStorage.setItem('Api', state.Api);
+        await saveKeysToLocalStorage();
         window.location.reload();
     };
 

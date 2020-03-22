@@ -7,6 +7,8 @@ import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 import Button from '../../Button/Button';
 
 const addButton = async ({ name, cvr, address, postal_code_and_city }) => {
+    
+
     await createCompanyInPipedrive({
         name,
         cvr,
