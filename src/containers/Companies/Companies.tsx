@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 
-import { Company, Button, Input, Loader, Container } from '../../components';
+import {
+    Company,
+    Button,
+    Input,
+    Loader,
+    Container,
+    Header,
+} from '../../components';
 import { ICompanyContainer } from '../../models/Company';
 import { fetchCompanies } from '../../helpers/fetchCompanies';
 import { SettingsIcon, AlertIcon } from '../../assets/images';
@@ -52,16 +59,9 @@ export default function Companies({ switchPage }) {
     };
 
     return (
-        <Container>
-            <div className="d-flex pb-4 pr-4">
-                <Input
-                    id="search"
-                    name="search"
-                    type="search"
-                    containerClassName="w-100 mb-0 shadow-sm"
-                    className="shadow-sm"
-                    onChange={handleSearch}
-                />
+        <>
+            <Header className="d-flex align-items-center justify-content-between">
+                <h4 className="text-secondary mb-0">CRM Plugin</h4>
                 <Button
                     className="align-self-end ml-4 p-0 my-auto"
                     value="ApiSetup"
@@ -69,31 +69,45 @@ export default function Companies({ switchPage }) {
                 >
                     <SettingsIcon />
                 </Button>
-            </div>
-            {isLoading ? (
-                <Loader />
-            ) : companies.length == 0 && search !== null ? (
-                <div className="d-flex flex-fill flex-column align-items-center justify-content-center pr-4">
-                    <AlertIcon />
-                    <p className="text-disabled">Ingen virksomheder fundet</p>
+            </Header>
+            <Container>
+                <div className="d-flex pb-4 pr-4">
+                    <Input
+                        id="search"
+                        name="search"
+                        type="search"
+                        containerClassName="w-100 mb-0 shadow-sm"
+                        className="shadow-sm"
+                        onChange={handleSearch}
+                    />
                 </div>
-            ) : (
-                <Company.CompanyList>
-                    {companies.map(company => {
-                        return (
-                            <Company.CompanyContainer
-                                key={company.cvr}
-                                name={company.name}
-                                address={company.address}
-                                postal_code_and_city={
-                                    company.postal_code_and_city
-                                }
-                                cvr={company.cvr}
-                            />
-                        );
-                    })}
-                </Company.CompanyList>
-            )}
-        </Container>
+                {isLoading ? (
+                    <Loader />
+                ) : companies.length == 0 && search !== null ? (
+                    <div className="d-flex flex-fill flex-column align-items-center justify-content-center pr-4">
+                        <AlertIcon />
+                        <p className="text-disabled">
+                            Ingen virksomheder fundet
+                        </p>
+                    </div>
+                ) : (
+                    <Company.CompanyList>
+                        {companies.map(company => {
+                            return (
+                                <Company.CompanyContainer
+                                    key={company.cvr}
+                                    name={company.name}
+                                    address={company.address}
+                                    postal_code_and_city={
+                                        company.postal_code_and_city
+                                    }
+                                    cvr={company.cvr}
+                                />
+                            );
+                        })}
+                    </Company.CompanyList>
+                )}
+            </Container>
+        </>
     );
 }
