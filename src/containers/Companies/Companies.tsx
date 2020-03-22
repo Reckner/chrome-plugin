@@ -4,6 +4,7 @@ import { Company, Button, Input, Loader, Container } from '../../components';
 import { ICompanyContainer } from '../../models/Company';
 import { fetchCompanies } from '../../helpers/fetchCompanies';
 import { SettingsIcon } from '../../assets/images';
+import ifCompanyExistsInPipedrive from '../../helpers/ifCompanyExistsInPipedrive';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
@@ -26,7 +27,16 @@ export default function Companies({ switchPage }) {
     const handleRequest = async e => {
         const { value: input } = e.target;
         if (input?.length > 2) {
-            setCompanies(await fetchCompanies(input));
+            const foundCompanies = await fetchCompanies(input);
+
+            for (const company of foundCompanies) {
+                if (await ifCompanyExistsInPipedrive(company.name || '')) {
+                    company.name = `+${company.name}`;
+                }
+            }
+
+            setCompanies(foundCompanies);
+
             setIsLoading(false);
         } else {
             setIsLoading(false);

@@ -1,13 +1,11 @@
 import React from 'react';
 import { ICompanyContainer } from '../../../models/Company';
-import createCompanyInPipedrive from '../../../api/create-company';
+import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
 import classnames from 'classnames';
 
 import Button from '../../Button/Button';
 
-const addButton = async (cvr) => {
-    
-
+const addButton = async cvr => {
     await createCompanyInPipedrive(cvr);
 };
 
@@ -29,9 +27,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             <Button
                 appearance="success"
                 className="p-3"
-                onClick={() =>
-                    addButton(cvr)
-                }
+                onClick={() => addButton(cvr)}
             >
                 +
             </Button>

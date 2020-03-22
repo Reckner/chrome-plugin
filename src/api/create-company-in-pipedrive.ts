@@ -1,23 +1,22 @@
 import axios from 'axios';
 import prepareData from '../helpers/prepareCompanyData';
+import { getApiToken } from '../helpers/getApiToken';
 
-const token = '9352e66cf5185840cdd3dc97a1a06bf9efac2192';
 const createCompanyInPipedrive = async (cvr: number) => {
-
     const data = await prepareData(cvr);
 
-    interface d {
-        [key: string] : any
+    interface IValues {
+        [key: string]: any;
     }
-    const values : d = {};
+    const values: IValues = {};
 
-    data.forEach(( _, index) =>{
+    data.forEach((_, index) => {
         values[data[index]['key']] = data[index]['value'];
-    })
-    console.log(values);
+    });
 
     await axios.post(
-        `https://app.pipedrive.com/v1/organizations?api_token=${token}`, values
+        `https://app.pipedrive.com/v1/organizations?api_token=${getApiToken()}`,
+        values,
     );
 };
 
