@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import { Company, Button, Input, Loader, Container } from '../../components';
 import { ICompanyContainer } from '../../models/Company';
 import { fetchCompanies } from '../../helpers/fetchCompanies';
-import { SettingsIcon } from '../../assets/images';
+import { SettingsIcon, AlertIcon } from '../../assets/images';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [search, setSearch] = useState(null);
 
     const handleSearch = e => {
         e.persist();
         const search = document.querySelector('#search');
         search?.addEventListener('keyup', function(this) {
+            setIsLoading(true);
             // clears timeout before starting new one
             clearTimeout(this.timeoutKeyUp);
 
@@ -28,9 +30,11 @@ export default function Companies({ switchPage }) {
         if (input?.length > 2) {
             setCompanies(await fetchCompanies(input));
             setIsLoading(false);
+            setSearch(e.target.value);
         } else {
             setIsLoading(false);
             setCompanies([]);
+            setSearch(null);
         }
     };
 
@@ -55,6 +59,11 @@ export default function Companies({ switchPage }) {
             </div>
             {isLoading ? (
                 <Loader />
+            ) : companies.length == 0 && search !== null ? (
+                <div className="d-flex flex-fill flex-column align-items-center justify-content-center pr-4">
+                    <AlertIcon />
+                    <p className="text-disabled">Ingen virksomheder fundet</p>
+                </div>
             ) : (
                 <Company.CompanyList>
                     {companies.map(company => {

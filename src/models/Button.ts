@@ -4,4 +4,5 @@ export interface IButton {
     className?: string;
     onClick?: any;
     value?: string;
+    style?: any;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { ICompanyContainer } from '../../../models/Company';
 import createCompanyInPipedrive from '../../../api/create-company';
 import classnames from 'classnames';
+import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 
 import Button from '../../Button/Button';
 
@@ -14,11 +15,22 @@ const addButton = async ({ name, cvr, address, postal_code_and_city }) => {
     });
 };
 
+const svgStyle = {
+    height: '25px',
+    width: '36px',
+    fill: '#fff',
+} as React.CSSProperties;
+
+const buttonStyle = {
+    maxWidth: '42px',
+} as React.CSSProperties;
+
 const CompanyContainer: React.FC<ICompanyContainer> = ({
     name,
     address,
     postal_code_and_city,
     cvr,
+    companyExist,
 }) => {
     return (
         <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
@@ -29,15 +41,58 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                 </p>
                 <p className="mb-0">CVR {cvr}</p>
             </div>
-            <Button
-                appearance="success"
-                className="p-3"
-                onClick={() =>
-                    addButton({ name, cvr, address, postal_code_and_city })
-                }
-            >
-                +
-            </Button>
+            {!companyExist ? (
+                <div className="d-flex flex-fill justify-content-end">
+                    <Button
+                        style={buttonStyle}
+                        appearance="success"
+                        className="p-0 w-100"
+                        onClick={() =>
+                            addButton({
+                                name,
+                                cvr,
+                                address,
+                                postal_code_and_city,
+                            })
+                        }
+                    >
+                        <AddIcon style={svgStyle} />
+                    </Button>
+                </div>
+            ) : (
+                <div className="d-flex flex-fill justify-content-end">
+                    <Button
+                        style={buttonStyle}
+                        appearance="danger"
+                        className="p-0 mx-1 w-100"
+                        onClick={() =>
+                            addButton({
+                                name,
+                                cvr,
+                                address,
+                                postal_code_and_city,
+                            })
+                        }
+                    >
+                        <RemoveIcon style={svgStyle} />
+                    </Button>
+                    <Button
+                        style={buttonStyle}
+                        appearance="info"
+                        className="p-0 w-100"
+                        onClick={() =>
+                            addButton({
+                                name,
+                                cvr,
+                                address,
+                                postal_code_and_city,
+                            })
+                        }
+                    >
+                        <RefreshIcon style={svgStyle} />
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

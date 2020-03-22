@@ -32,8 +32,9 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
     };
 
     return (
-        <Container>
-            <div className="d-flex pb-4 pr-4 align-items-center justify-content-end">
+        <Container className="justify-content-between">
+            <div className="d-flex pb-4 pr-4 justify-content-between">
+                <h1 className="mb-0">CRM Plugin</h1>
                 <Button
                     onClick={() => switchPage('default')}
                     className={classnames('align-self-end ml-4 p-0 my-auto', {
@@ -43,7 +44,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                     <CloseIcon />
                 </Button>
             </div>
-            <div className="d-flex flex-column flex-fill justify-content-center pb-4 pr-4">
+            <div className="d-flex flex-column pr-4">
                 <Input
                     id="api"
                     label="Enter Api"
@@ -65,6 +66,10 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                     </Button>
                 )}
             </div>
+            <p className="mb-0 pr-4">
+                CRM Plugin to import Companies from Danish company register to
+                Pipedrive
+            </p>
         </Container>
     );
 };

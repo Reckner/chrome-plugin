@@ -7,4 +7,5 @@ export interface ICompanyContainer {
     status?: string;
     type?: string;
     advertising_protection?: string;
+    companyExist?: string;
 }

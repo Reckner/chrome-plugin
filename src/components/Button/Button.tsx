@@ -7,6 +7,7 @@ const Button: React.FC<IButton> = ({
     children,
     className,
     onClick,
+    style,
 }) => {
     const classes = classnames(
         'btn',
@@ -15,7 +16,7 @@ const Button: React.FC<IButton> = ({
     );
 
     return (
-        <button className={classes} onClick={onClick}>
+        <button className={classes} onClick={onClick} style={style}>
             {children}
         </button>
     );

@@ -1,7 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28pt" height="28pt" viewBox="0 0 28 28" version="1.1">
-<g id="surface1">
-<path fill="none" stroke="#858484" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" stroke-miterlimit="4" d="M 1.032087 16.967913 L 16.967913 1.032087 " transform="matrix(1.555556,0,0,1.555556,0,0)"/>
-<path fill="none" stroke="#858484" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" stroke-miterlimit="4" d="M 16.932757 17.000558 L 1.067243 0.999442 " transform="matrix(1.555556,0,0,1.555556,0,0)"/>
-</g>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="surface1">
+   <path id="svg_1" d="m3.60547,28.39453l24.78906,-24.78906" stroke-miterlimit="4" stroke="#858484" fill="none"/>
+   <path id="svg_2" d="m28.339852,28.445319l-24.679705,-24.890638" stroke-miterlimit="4" stroke="#858484" fill="none"/>
+  </g>
+ </g>
 </svg>
