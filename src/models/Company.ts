@@ -1,6 +1,6 @@
 export interface ICompanyContainer {
     name?: string;
-    cvr?: string;
+    cvr?: number;
     address?: string;
     postal_code_and_city?: string;
     start_date?: string;

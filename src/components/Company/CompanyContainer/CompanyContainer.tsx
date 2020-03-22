@@ -1,20 +1,13 @@
 import React from 'react';
 import { ICompanyContainer } from '../../../models/Company';
-import createCompanyInPipedrive from '../../../api/create-company';
+import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
 import classnames from 'classnames';
 import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 
 import Button from '../../Button/Button';
 
-const addButton = async ({ name, cvr, address, postal_code_and_city }) => {
-    
-
-    await createCompanyInPipedrive({
-        name,
-        cvr,
-        address,
-        postal_code_and_city,
-    });
+const addButton = async cvr => {
+    await createCompanyInPipedrive(cvr);
 };
 
 const svgStyle = {
