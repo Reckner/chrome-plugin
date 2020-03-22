@@ -26,6 +26,9 @@ export default function Companies({ switchPage }) {
 
     const handleRequest = async e => {
         const { value: input } = e.target;
+
+        setIsLoading(true);
+
         if (input?.length > 2) {
             const foundCompanies = await fetchCompanies(input);
 
