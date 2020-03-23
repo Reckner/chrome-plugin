@@ -4,13 +4,17 @@ import { getApiToken } from '../helpers/getApiToken';
 import axios from 'axios';
 
 const deleteCompanyFromPipedrive = async (name: string) => {
-    const company = await getCompanyByName(name);
+    const companies = await getCompanyByName(name);
 
-    if(Object.keys(company).length !== 0){
-        await axios.delete(
-            `https://api.pipedrive.com/v1/organizations/${company[0]['id']}?api_token=${getApiToken()}`
-        );
-    }
+    companies.forEach(async company => {
+        if (company.name.trim() === name.trim()) {
+            await axios.delete(
+                `https://api.pipedrive.com/v1/organizations/${
+                    company.id
+                }?api_token=${getApiToken()}`,
+            );
+        }
+    });
 };
 
 export default deleteCompanyFromPipedrive;

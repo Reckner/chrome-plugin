@@ -1,14 +1,13 @@
 import React from 'react';
+import _ from 'lodash';
 import { ICompanyContainer } from '../../../models/Company';
 import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
+import deleteCompanyFromPipedrive from '../../../api/delete-company-from-pipedrive';
 import classnames from 'classnames';
 import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
+import ifCompanyExistsInPipedrive from '../../../helpers/ifCompanyExistsInPipedrive';
 
 import Button from '../../Button/Button';
-
-const addButton = async cvr => {
-    await createCompanyInPipedrive(cvr);
-};
 
 const svgStyle = {
     height: '25px',
@@ -26,7 +25,52 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     postal_code_and_city,
     cvr,
     companyExist,
+    companies,
+    setCompanies,
 }) => {
+    const updateCompaniesAfterAdding = () => {
+        if (companies) {
+            let newCompanies = [...companies];
+
+            setCompanies(
+                newCompanies.map(c => {
+                    if (c.cvr === cvr) {
+                        return {
+                            ...c,
+                            companyExist: true,
+                        };
+                    }
+                    return c;
+                }),
+            );
+        }
+    };
+
+    const updateCompaniesAfterDeleting = () => {
+        let newCompanies = [...companies];
+        setCompanies(
+            newCompanies.map(c => {
+                if (c.name === name) {
+                    return {
+                        ...c,
+                        companyExist: false,
+                    };
+                }
+                return c;
+            }),
+        );
+    };
+
+    const addButton = async cvr => {
+        await createCompanyInPipedrive(cvr);
+        updateCompaniesAfterAdding();
+    };
+
+    const deleteButton = async (name: string) => {
+        await deleteCompanyFromPipedrive(name);
+        updateCompaniesAfterDeleting();
+    };
+
     return (
         <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
             <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
@@ -42,14 +86,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         style={buttonStyle}
                         appearance="success"
                         className="p-0 w-100"
-                        onClick={() =>
-                            addButton({
-                                name,
-                                cvr,
-                                address,
-                                postal_code_and_city,
-                            })
-                        }
+                        onClick={() => addButton(cvr)}
                     >
                         <AddIcon style={svgStyle} />
                     </Button>
@@ -60,14 +97,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         style={buttonStyle}
                         appearance="danger"
                         className="p-0 mx-1 w-100"
-                        onClick={() =>
-                            addButton({
-                                name,
-                                cvr,
-                                address,
-                                postal_code_and_city,
-                            })
-                        }
+                        onClick={() => deleteButton(name)}
                     >
                         <RemoveIcon style={svgStyle} />
                     </Button>

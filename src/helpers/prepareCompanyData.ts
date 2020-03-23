@@ -86,7 +86,6 @@ const prepareData = async (cvr: number) => {
     }
 
     const businessform = businessType[values[11]['value']];
-    console.log(businessform);
 
     formattedData.push(
         {

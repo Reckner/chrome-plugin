@@ -18,9 +18,11 @@ export async function fetchCompanies(
 
     for (const cNode of companiesNodes) {
         companies.push({
-            name: cNode.querySelector('.name a')?.innerHTML,
-            cvr: parseInt(cNode.querySelector('.cvr')?.querySelectorAll('p')[1]
-                ?.innerHTML || ''),
+            name: cNode.querySelector('.name a')?.innerHTML || '',
+            cvr: parseInt(
+                cNode.querySelector('.cvr')?.querySelectorAll('p')[1]
+                    ?.innerHTML || '',
+            ),
             status: cNode.querySelector('.status')?.querySelectorAll('p')[1]
                 ?.innerHTML,
             type: cNode.querySelector('.type')?.querySelectorAll('p')[1]
@@ -33,6 +35,7 @@ export async function fetchCompanies(
                 .querySelector('.row.info')
                 ?.querySelector('p')
                 ?.innerHTML?.split('<br>')[1],
+            companyExist: false,
         });
     }
 

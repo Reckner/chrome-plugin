@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
     Company,
@@ -40,15 +40,7 @@ export default function Companies({ switchPage }) {
 
         if (input?.length > 2) {
             const foundCompanies = await fetchCompanies(input);
-
-            for (const company of foundCompanies) {
-                if (await ifCompanyExistsInPipedrive(company.name || '')) {
-                    company.name = `+${company.name}`;
-                }
-            }
-
-            setCompanies(foundCompanies);
-
+            setCompanies(await checkedCompanies(foundCompanies));
             setIsLoading(false);
             setSearch(e.target.value);
         } else {
@@ -56,6 +48,22 @@ export default function Companies({ switchPage }) {
             setCompanies([]);
             setSearch(null);
         }
+    };
+
+    const checkedCompanies = (companies: ICompanyContainer[]) => {
+        const formatted = Promise.all(
+            companies.map(async company => {
+                if (await ifCompanyExistsInPipedrive(company.name || '')) {
+                    return {
+                        ...company,
+                        companyExist: true,
+                    };
+                }
+                return company;
+            }),
+        );
+
+        return formatted;
     };
 
     return (
@@ -102,6 +110,9 @@ export default function Companies({ switchPage }) {
                                         company.postal_code_and_city
                                     }
                                     cvr={company.cvr}
+                                    companyExist={company.companyExist}
+                                    companies={companies}
+                                    setCompanies={setCompanies}
                                 />
                             );
                         })}

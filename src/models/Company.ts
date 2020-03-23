@@ -1,5 +1,5 @@
 export interface ICompanyContainer {
-    name?: string;
+    name: string;
     cvr?: number;
     address?: string;
     postal_code_and_city?: string;
@@ -7,5 +7,7 @@ export interface ICompanyContainer {
     status?: string;
     type?: string;
     advertising_protection?: string;
-    companyExist?: string;
+    companyExist?: boolean;
+    companies?: ICompanyContainer[];
+    setCompanies?: any;
 }
