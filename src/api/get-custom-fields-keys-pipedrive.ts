@@ -1,12 +1,23 @@
 import axios from 'axios';
-
-const token = '9352e66cf5185840cdd3dc97a1a06bf9efac2192';
+import { getApiToken } from '../helpers/getApiToken';
 
 const getKeysFromPipedrive = async () => {
-    const response = await axios.get(`https://app.pipedrive.com/api/v1/organizationFields?api_token=${token}`);
-    const { data:fields } = response.data;
+    const response = await axios.get(
+        `https://app.pipedrive.com/api/v1/organizationFields?api_token=${getApiToken()}`,
+    );
+    const { data: fields } = response.data;
 
-    const names = ['*CVR', 'Name', 'Address', 'Tlf. (Reception)', 'Etableringsdato', 'Antal medarb.', 'Branchekode', 'Branchetekst', 'Selskabsform'];
+    const names = [
+        '*CVR',
+        'Name',
+        'Address',
+        'Tlf. (Reception)',
+        'Etableringsdato',
+        'Antal medarb.',
+        'Branchekode',
+        'Branchetekst',
+        'Selskabsform',
+    ];
     const keys: object[] = [];
 
     for (const name of names) {
