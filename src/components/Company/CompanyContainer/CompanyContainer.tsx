@@ -8,6 +8,7 @@ import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 import ifCompanyExistsInPipedrive from '../../../helpers/ifCompanyExistsInPipedrive';
 import $ from 'jquery';
 import Button from '../../Button/Button';
+import updateCompanyInPipedrive from '../../../api/update-company-in-pipedrive';
 
 const svgStyle = {
     height: '25px',
@@ -75,6 +76,10 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         updateCompaniesAfterDeleting();
     };
 
+    const updateButton = async (name: string, cvr: number) => {
+        await updateCompanyInPipedrive(name, cvr);
+    };
+
     return (
         <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
             <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
@@ -116,14 +121,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         style={buttonStyle}
                         appearance="info"
                         className="p-0 w-100"
-                        onClick={() =>
-                            addButton({
-                                name,
-                                cvr,
-                                address,
-                                postal_code_and_city,
-                            })
-                        }
+                        onClick={() => updateButton(name, cvr)}
                     >
                         <RefreshIcon style={svgStyle} />
                     </Button>
