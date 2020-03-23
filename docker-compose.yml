@@ -7,11 +7,11 @@ services:
             NODE_ENV: 'development'
         build: .
         networks:
-            - 'nginx-networks'
+            - 'nginx-network'
         ports:
             - '5777:5777'
         volumes:
             - .:/usr/src/app
 networks:
-    nginx-networks:
+    nginx-network:
         external: true
