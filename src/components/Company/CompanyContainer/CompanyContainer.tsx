@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import { ICompanyContainer } from '../../../models/Company';
 import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
@@ -6,7 +6,7 @@ import deleteCompanyFromPipedrive from '../../../api/delete-company-from-pipedri
 import classnames from 'classnames';
 import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 import ifCompanyExistsInPipedrive from '../../../helpers/ifCompanyExistsInPipedrive';
-
+import $ from 'jquery';
 import Button from '../../Button/Button';
 
 const svgStyle = {
@@ -28,6 +28,10 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     companies,
     setCompanies,
 }) => {
+    useEffect(() => {
+        ($('[data-toggle="tooltip"]') as any).tooltip();
+    });
+
     const updateCompaniesAfterAdding = () => {
         if (companies) {
             let newCompanies = [...companies];
@@ -74,7 +78,14 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     return (
         <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
             <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
-                <h3 className="mb-0 text-truncate w-75">{name}</h3>
+                <h3
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title={name}
+                    className="mb-0 text-truncate w-75 companyName"
+                >
+                    {name}
+                </h3>
                 <p className="mb-0">
                     {address}, {postal_code_and_city}
                 </p>
