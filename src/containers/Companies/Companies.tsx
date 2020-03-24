@@ -96,7 +96,7 @@ export default function Companies({ switchPage }) {
                 </div>
                 {isLoading ? (
                     <Loader />
-                ) : companies.length == 0 && search !== null ? (
+                ) : companies.length === 0 && search !== null ? (
                     <div className="d-flex flex-fill flex-column align-items-center justify-content-center pr-4">
                         <AlertIcon />
                         <p className="text-disabled">

@@ -1,8 +1,17 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import $ from 'jquery';
 
 import { Private, Public } from './Layout';
 
 function App() {
+    useEffect(() => {
+        $(document).ready(function() {
+            $('body').on('contextmenu', function() {
+                return false;
+            });
+        });
+    });
+
     switch (!localStorage.getItem('Api')) {
         case false:
             return <Private />;

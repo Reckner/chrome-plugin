@@ -4,7 +4,7 @@
     "manifest_version": 2,
     "version": "1.0",
     "description": "CRM Plugin to import Companies from Danish company register to Pipedrive",
-    "icons": {
+    "array": {
         "16": "factory_16.png",
         "48": "factory_48.png",
         "128": "factory_128.png"

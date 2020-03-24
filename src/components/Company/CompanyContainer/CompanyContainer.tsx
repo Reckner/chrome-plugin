@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
 import $ from 'jquery';
 import classnames from 'classnames';
 
