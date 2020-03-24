@@ -72,7 +72,7 @@ export default function Companies({ switchPage }) {
 
     return (
         <>
-            <Alert>huita</Alert>
+            <Alert>Error</Alert>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">CRM Plugin</h4>
                 <Button

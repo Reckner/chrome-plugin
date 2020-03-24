@@ -33,11 +33,16 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     setCompanies,
 }) => {
     useEffect(() => {
-        $('.companyName').hover(function() {
-            if (this.offsetWidth < this.scrollWidth) {
-                $(this).attr('title', $(this).text());
-            }
-        });
+        $('.companyName').hover(
+            function() {
+                if (this.offsetWidth < this.scrollWidth) {
+                    $(this).attr('title', $(this).text());
+                }
+            },
+            function() {
+                $(this).removeAttr('title');
+            },
+        );
     });
 
     const updateCompaniesAfterAdding = () => {
