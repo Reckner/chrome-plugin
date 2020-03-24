@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
 import classnames from 'classnames';
+
 import { Input, Button, Container, Header } from '../../components';
-import { CloseIcon } from '../../assets/images';
+
 import saveCustomFieldsKeysToLocalStorage from '../../helpers/saveCustomFiledsKeysToLocalStorage';
+import { CloseIcon } from '../../assets/images';
 
 interface ApiSetup {
     switchPage?: any;
@@ -40,7 +42,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                 <h4 className="text-secondary mb-0">CRM Plugin</h4>
                 <Button
                     onClick={() => switchPage('default')}
-                    className={classnames('align-self-end ml-4 p-0 my-auto', {
+                    className={classnames('align-self-end ml-4 px-0 my-auto', {
                         invisible: guest,
                     })}
                 >

@@ -1,3 +1,4 @@
 export interface IAlert {
-    children: any;
+    children: string;
+    type?: string;
 }

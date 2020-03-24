@@ -33,8 +33,10 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     setCompanies,
 }) => {
     useEffect(() => {
-        ($('[data-toggle="tooltip"]') as any).tooltip({
-            delay: { show: 500, hide: 100 },
+        $('.companyName').hover(function() {
+            if (this.offsetWidth < this.scrollWidth) {
+                $(this).attr('title', $(this).text());
+            }
         });
     });
 
@@ -101,14 +103,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     return (
         <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
             <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
-                <h3
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title={name}
-                    className="mb-0 text-truncate w-75 companyName"
-                >
-                    {name}
-                </h3>
+                <h3 className="mb-0 text-truncate w-75 companyName">{name}</h3>
                 <p className="mb-0">
                     {address}, {postal_code_and_city}
                 </p>
