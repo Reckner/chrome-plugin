@@ -3,6 +3,7 @@ export interface IButton {
     children: any;
     className?: string;
     onClick?: any;
-    value?: string;
     style?: any;
+    title?: any;
+    value?: string;
 }

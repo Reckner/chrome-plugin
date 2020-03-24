@@ -1,13 +1,13 @@
 export interface ICompanyContainer {
-    name: string;
-    cvr: number;
     address?: string;
+    advertising_protection?: string;
+    companies?: ICompanyContainer[];
+    companyExist?: boolean;
+    cvr: number;
+    name: string;
     postal_code_and_city?: string;
+    setCompanies?: any;
     start_date?: string;
     status?: string;
     type?: string;
-    advertising_protection?: string;
-    companyExist?: boolean;
-    companies?: ICompanyContainer[];
-    setCompanies?: any;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import { IContainer } from '../../models/Container';
 import classnames from 'classnames';
+
+import { IContainer } from '../../models/Container';
 
 const style = {
     height: '90%',

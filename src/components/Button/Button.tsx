@@ -1,6 +1,7 @@
 import React from 'react';
-import { IButton } from '../../models/Button';
 import classnames from 'classnames';
+
+import { IButton } from '../../models/Button';
 
 const Button: React.FC<IButton> = ({
     appearance,
@@ -8,6 +9,7 @@ const Button: React.FC<IButton> = ({
     className,
     onClick,
     style,
+    title,
 }) => {
     const classes = classnames(
         'btn',
@@ -16,7 +18,12 @@ const Button: React.FC<IButton> = ({
     );
 
     return (
-        <button className={classes} onClick={onClick} style={style}>
+        <button
+            title={title}
+            className={classes}
+            onClick={onClick}
+            style={style}
+        >
             {children}
         </button>
     );

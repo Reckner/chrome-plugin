@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import getCompanyByNamePipedrive from '../api/get-company-by-name-pipedrive';
 
 const ifCompanyExistsInPipedrive = async (name: string): Promise<boolean> => {

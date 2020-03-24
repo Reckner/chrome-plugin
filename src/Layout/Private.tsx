@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
-import Companies from '../containers/Companies/Companies';
+
 import ApiSetup from '../containers/ApiSetup/ApiSetup';
+import Companies from '../containers/Companies/Companies';
 
 function Private() {
     const [page, setPage] = useState('default');

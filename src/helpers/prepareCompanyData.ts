@@ -1,6 +1,7 @@
+import moment from 'moment';
+
 import getCompanyData from '../api/get-company-data-cvrapi';
 import getCustomFields from './getCustomFields';
-import moment from 'moment';
 
 const prepareData = async (cvr: number) => {
     const data = await getCompanyData(cvr);

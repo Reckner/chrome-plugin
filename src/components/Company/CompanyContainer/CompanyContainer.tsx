@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import _ from 'lodash';
-import { ICompanyContainer } from '../../../models/Company';
+import $ from 'jquery';
+import classnames from 'classnames';
+
 import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
 import deleteCompanyFromPipedrive from '../../../api/delete-company-from-pipedrive';
-import classnames from 'classnames';
-import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 import ifCompanyExistsInPipedrive from '../../../helpers/ifCompanyExistsInPipedrive';
-import $ from 'jquery';
-import Button from '../../Button/Button';
 import updateCompanyInPipedrive from '../../../api/update-company-in-pipedrive';
+
+import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
+import Button from '../../Button/Button';
+
+import { ICompanyContainer } from '../../../models/Company';
 
 const svgStyle = {
     height: '25px',
@@ -30,7 +33,9 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     setCompanies,
 }) => {
     useEffect(() => {
-        ($('[data-toggle="tooltip"]') as any).tooltip();
+        ($('[data-toggle="tooltip"]') as any).tooltip({
+            delay: { show: 500, hide: 100 },
+        });
     });
 
     const updateCompaniesAfterAdding = () => {
@@ -69,15 +74,28 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     const addButton = async cvr => {
         await createCompanyInPipedrive(cvr);
         updateCompaniesAfterAdding();
+
+        ($('#alert') as any).modal({ backdrop: false, keyboard: false });
+        setTimeout(() => {
+            ($('#alert') as any).modal('hide');
+        }, 1500);
     };
 
     const deleteButton = async (name: string) => {
         await deleteCompanyFromPipedrive(name);
         updateCompaniesAfterDeleting();
+        ($('#alert') as any).modal({ backdrop: false, keyboard: false });
+        setTimeout(() => {
+            ($('#alert') as any).modal('hide');
+        }, 1500);
     };
 
     const updateButton = async (name: string, cvr: number) => {
         await updateCompanyInPipedrive(name, cvr);
+        ($('#alert') as any).modal({ backdrop: false, keyboard: false });
+        setTimeout(() => {
+            ($('#alert') as any).modal('hide');
+        }, 1500);
     };
 
     return (
@@ -103,6 +121,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         appearance="success"
                         className="p-0 w-100"
                         onClick={() => addButton(cvr)}
+                        title="Add Company"
                     >
                         <AddIcon style={svgStyle} />
                     </Button>
@@ -114,6 +133,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         appearance="danger"
                         className="p-0 mx-1 w-100"
                         onClick={() => deleteButton(name)}
+                        title="Remove Company"
                     >
                         <RemoveIcon style={svgStyle} />
                     </Button>
@@ -122,6 +142,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         appearance="info"
                         className="p-0 w-100"
                         onClick={() => updateButton(name, cvr)}
+                        title="Update Company"
                     >
                         <RefreshIcon style={svgStyle} />
                     </Button>

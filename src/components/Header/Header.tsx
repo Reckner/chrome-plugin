@@ -1,6 +1,7 @@
 import React from 'react';
-import { IHeader } from '../../models/Header';
 import classnames from 'classnames';
+
+import { IHeader } from '../../models/Header';
 
 const Header: React.FC<IHeader> = ({ children, className }) => {
     return (

@@ -1,7 +1,8 @@
-import getCompanyByName from './get-company-by-name-pipedrive';
-import { getApiToken } from '../helpers/getApiToken';
-
 import axios from 'axios';
+
+import { getApiToken } from '../helpers/getApiToken';
+import getCompanyByName from './get-company-by-name-pipedrive';
+
 
 const deleteCompanyFromPipedrive = async (name: string) => {
     const companies = await getCompanyByName(name);

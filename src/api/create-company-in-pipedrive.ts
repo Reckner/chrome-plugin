@@ -1,6 +1,7 @@
 import axios from 'axios';
-import prepareData from '../helpers/prepareCompanyData';
+
 import { getApiToken } from '../helpers/getApiToken';
+import prepareData from '../helpers/prepareCompanyData';
 
 const createCompanyInPipedrive = async (cvr: number) => {
     const data = await prepareData(cvr);

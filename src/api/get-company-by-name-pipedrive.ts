@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { getApiToken } from '../helpers/getApiToken';
 
 const getCompanyByNamePipedrive = async (name: string) => {

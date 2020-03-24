@@ -1,6 +1,7 @@
 export interface IInput {
     className?: string;
     containerClassName?: string;
+    disabled?: any;
     id: string;
     label?: string;
     labelClassName?: string;
@@ -9,5 +10,4 @@ export interface IInput {
     placeholder?: string;
     type: string;
     value?: any;
-    disabled?: any;
 }

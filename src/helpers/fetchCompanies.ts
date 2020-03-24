@@ -1,7 +1,8 @@
 import axios from 'axios';
+import jsdom from 'jsdom';
+
 import { ICompanyContainer } from '../models/Company';
 
-import jsdom from 'jsdom';
 const { JSDOM } = jsdom;
 
 export async function fetchCompanies(

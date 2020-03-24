@@ -1,8 +1,8 @@
-import getCompanyByName from './get-company-by-name-pipedrive';
-import { getApiToken } from '../helpers/getApiToken';
-import prepareData from '../helpers/prepareCompanyData';
-
 import axios from 'axios';
+
+import { getApiToken } from '../helpers/getApiToken';
+import getCompanyByName from './get-company-by-name-pipedrive';
+import prepareData from '../helpers/prepareCompanyData';
 
 const updateCompanyInPipedrive = async (name: string, cvr: number) => {
     const data = await prepareData(cvr);

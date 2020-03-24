@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import {
-    Company,
     Button,
-    Input,
-    Loader,
+    Company,
     Container,
     Header,
+    Input,
+    Loader,
 } from '../../components';
-import { ICompanyContainer } from '../../models/Company';
-import { fetchCompanies } from '../../helpers/fetchCompanies';
-import { SettingsIcon, AlertIcon } from '../../assets/images';
+
 import ifCompanyExistsInPipedrive from '../../helpers/ifCompanyExistsInPipedrive';
+import { fetchCompanies } from '../../helpers/fetchCompanies';
+
+import { SettingsIcon, AlertIcon } from '../../assets/images';
+
+import { ICompanyContainer } from '../../models/Company';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);

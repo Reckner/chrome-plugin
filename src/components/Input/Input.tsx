@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
-import { IInput } from '../../models/Input';
 import classnames from 'classnames';
+
+import { IInput } from '../../models/Input';
 
 const Input: React.FC<IInput> = ({
     className,
