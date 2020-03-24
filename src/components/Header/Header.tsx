@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 const Header: React.FC<IHeader> = ({ children, className }) => {
     return (
-        <div className={classnames('border-bottom', 'mx-4', 'pt-4', className)}>
+        <div className={classnames('border-bottom', 'mx-4', 'pt-3', className)}>
             {children}
         </div>
     );

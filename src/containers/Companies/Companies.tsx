@@ -71,7 +71,7 @@ export default function Companies({ switchPage }) {
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">CRM Plugin</h4>
                 <Button
-                    className="align-self-end ml-4 p-0 my-auto"
+                    className="align-self-end ml-4 pr-0 my-auto"
                     value="ApiSetup"
                     onClick={() => switchPage('ApiSetup')}
                 >
