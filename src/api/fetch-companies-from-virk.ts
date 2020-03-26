@@ -1,15 +1,14 @@
 import axios from 'axios';
-import jsdom from 'jsdom';
-
 import { ICompanyContainer } from '../models/Company';
 
+import jsdom from 'jsdom';
 const { JSDOM } = jsdom;
 
 export async function fetchCompanies(
     search: string,
 ): Promise<ICompanyContainer[]> {
     const response = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://datacvr.virk.dk/data/visninger?soeg=${search}&oprettet=null&ophoert=null&branche=&type=undefined&language=da`,
+        `http://degit.org:8099/https://datacvr.virk.dk/data/visninger?soeg=${search}&oprettet=null&ophoert=null&branche=&type=undefined&language=da`,
     );
 
     const dom = new JSDOM(response.data);

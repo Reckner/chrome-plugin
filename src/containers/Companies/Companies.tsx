@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import $ from 'jquery';
 
 import {
     Alert,
@@ -11,11 +12,12 @@ import {
 } from '../../components';
 
 import ifCompanyExistsInPipedrive from '../../helpers/ifCompanyExistsInPipedrive';
-import { fetchCompanies } from '../../helpers/fetchCompanies';
+import { fetchCompanies } from '../../api/fetch-companies-from-virk';
 
 import { SettingsIcon, AlertIcon } from '../../assets/images';
 
 import { ICompanyContainer } from '../../models/Company';
+import getCompanyData from '../../api/get-company-data-cvrapi';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
@@ -43,7 +45,20 @@ export default function Companies({ switchPage }) {
         setIsLoading(true);
 
         if (input?.length > 2) {
-            const foundCompanies = await fetchCompanies(input);
+            let foundCompanies : ICompanyContainer[];
+            if($.isNumeric(input)){
+                const companyData = await getCompanyData(input);
+                foundCompanies = [{
+                    cvr: companyData.data['vat'],
+                    name: companyData.data['name'],
+                    address: companyData.data['address'],
+                    postal_code_and_city: companyData.data['zipcode'],
+                }];
+            }
+            else{
+                 foundCompanies = await fetchCompanies(input);
+            }
+            
             setCompanies(await checkedCompanies(foundCompanies));
             setIsLoading(false);
             setSearch(e.target.value);
