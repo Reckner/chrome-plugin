@@ -10,4 +10,6 @@ export interface ICompanyContainer {
     start_date?: string;
     status?: string;
     type?: string;
+    setAlertType?: any;
+    setAllertMessage?: any;
 }

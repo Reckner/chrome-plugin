@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { ICompanyContainer } from '../models/Company';
 import { getApiToken } from '../helpers/getApiToken';
 
 const getCompanyByNamePipedrive = async (name: string) => {

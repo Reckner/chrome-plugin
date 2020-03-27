@@ -23,6 +23,8 @@ export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [search, setSearch] = useState(null);
+    const [type, setType] = useState('');
+    const [allertMessage, setAllertMessage] = useState('Error');
 
     const handleSearch = e => {
         e.persist();
@@ -45,20 +47,21 @@ export default function Companies({ switchPage }) {
         setIsLoading(true);
 
         if (input?.length > 2) {
-            let foundCompanies : ICompanyContainer[];
-            if($.isNumeric(input)){
+            let foundCompanies: ICompanyContainer[];
+            if ($.isNumeric(input)) {
                 const companyData = await getCompanyData(input);
-                foundCompanies = [{
-                    cvr: companyData.data['vat'],
-                    name: companyData.data['name'],
-                    address: companyData.data['address'],
-                    postal_code_and_city: companyData.data['zipcode'],
-                }];
+                foundCompanies = [
+                    {
+                        cvr: companyData.data['vat'],
+                        name: companyData.data['name'],
+                        address: companyData.data['address'],
+                        postal_code_and_city: companyData.data['zipcode'],
+                    },
+                ];
+            } else {
+                foundCompanies = await fetchCompanies(input);
             }
-            else{
-                 foundCompanies = await fetchCompanies(input);
-            }
-            
+
             setCompanies(await checkedCompanies(foundCompanies));
             setIsLoading(false);
             setSearch(e.target.value);
@@ -87,7 +90,7 @@ export default function Companies({ switchPage }) {
 
     return (
         <>
-            <Alert>Error</Alert>
+            <Alert type={type}>{allertMessage}</Alert>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">CRM Plugin</h4>
                 <Button
@@ -133,6 +136,8 @@ export default function Companies({ switchPage }) {
                                     companyExist={company.companyExist}
                                     companies={companies}
                                     setCompanies={setCompanies}
+                                    setAlertType={setType}
+                                    setAllertMessage={setAllertMessage}
                                 />
                             );
                         })}

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ErrorIcon } from '../../assets/images';
 
-interface IAlertError {
+interface IAlertNegative {
     children: any;
 }
 
@@ -10,7 +10,7 @@ const bgStyle = {
     background: 'rgba(181, 0, 0, 0.65)',
 } as React.CSSProperties;
 
-const AlertError: React.FC<IAlertError> = ({ children }) => {
+const AlertNegative: React.FC<IAlertNegative> = ({ children }) => {
     return (
         <div
             style={{ height: 'auto' }}
@@ -29,4 +29,4 @@ const AlertError: React.FC<IAlertError> = ({ children }) => {
     );
 };
 
-export default AlertError;
+export default AlertNegative;

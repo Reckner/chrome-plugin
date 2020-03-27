@@ -1,19 +1,22 @@
 import React from 'react';
 
-import AlertAdd from './AlertAdd';
-import AlertRemove from './AlertRemove';
-import AlertError from './AlertError';
+import AlertPositive from './AlertPositive';
+import AlertNegative from './AlertNegative';
 
 import { IAlert } from '../../models/Alert';
 
 const Alert: React.FC<IAlert> = ({ children, type }) => {
     switch (type) {
         case 'add':
-            return <AlertAdd>{children}</AlertAdd>;
+            return <AlertPositive>{children}</AlertPositive>;
         case 'remove':
-            return <AlertRemove>{children}</AlertRemove>;
+            return <AlertPositive>{children}</AlertPositive>;
+        case 'update':
+            return <AlertPositive>{children}</AlertPositive>;
+        case 'error':
+            return <AlertNegative>{children}</AlertNegative>;
         default:
-            return <AlertError>{children}</AlertError>;
+            return <AlertNegative>{children}</AlertNegative>;
     }
 };
 

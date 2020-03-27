@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CompanyAddIcon } from '../../assets/images';
 
-interface AlertAdd {
+interface AlertPositive {
     children: any;
 }
 
@@ -10,7 +10,7 @@ const bgStyle = {
     background: 'rgba(0, 0, 0, 0.65)',
 } as React.CSSProperties;
 
-const AlertAdd: React.FC<AlertAdd> = ({ children }) => {
+const AlertPositive: React.FC<AlertPositive> = ({ children }) => {
     return (
         <div
             style={{ height: 'auto' }}
@@ -29,4 +29,4 @@ const AlertAdd: React.FC<AlertAdd> = ({ children }) => {
     );
 };
 
-export default AlertAdd;
+export default AlertPositive;

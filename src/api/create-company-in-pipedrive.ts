@@ -15,7 +15,7 @@ const createCompanyInPipedrive = async (cvr: number) => {
         values[data[index]['key']] = data[index]['value'];
     });
 
-    await axios.post(
+    return await axios.post(
         `https://app.pipedrive.com/v1/organizations?api_token=${getApiToken()}`,
         values,
     );

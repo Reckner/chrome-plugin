@@ -30,6 +30,8 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     companyExist,
     companies,
     setCompanies,
+    setAlertType,
+    setAllertMessage,
 }) => {
     useEffect(() => {
         $('.companyName').hover(
@@ -78,7 +80,13 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     const addButton = async cvr => {
-        await createCompanyInPipedrive(cvr);
+        setAlertType('add');
+        setAllertMessage('Company has been added to Pipedrive!');
+        const result = await createCompanyInPipedrive(cvr);
+        if (result?.data?.success !== true) {
+            setAlertType('error');
+            setAllertMessage('Error Adding Company!');
+        }
         updateCompaniesAfterAdding();
 
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
@@ -88,7 +96,13 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     const deleteButton = async (name: string) => {
-        await deleteCompanyFromPipedrive(name);
+        setAlertType('remove');
+        setAllertMessage('Company has been removed from Pipedrive!');
+        const result = await deleteCompanyFromPipedrive(name);
+        if (result?.data?.success !== true) {
+            setAlertType('error');
+            setAllertMessage('Error Deleting Company!');
+        }
         updateCompaniesAfterDeleting();
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
@@ -97,7 +111,14 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     const updateButton = async (name: string, cvr: number) => {
-        await updateCompanyInPipedrive(name, cvr);
+        setAlertType('update');
+        setAllertMessage('Company data has been updated!');
+        const result = await updateCompanyInPipedrive(name, cvr);
+        if (result?.data?.success !== true) {
+            setAlertType('error');
+            setAllertMessage('Error Updating Company Data!');
+        }
+
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
