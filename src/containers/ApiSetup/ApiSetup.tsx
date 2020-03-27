@@ -39,7 +39,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
     return (
         <>
             <Header className="d-flex align-items-center justify-content-between">
-                <h4 className="text-secondary mb-0">CRM Plugin</h4>
+                <h4 className="text-secondary mb-0">Find og overfør Virk-data til PD</h4>
                 <Button
                     onClick={() => switchPage('default')}
                     className={classnames('align-self-end ml-4 px-0 my-auto', {
@@ -53,7 +53,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                 <div className="d-flex flex-column flex-fill justify-content-center pr-4">
                     <Input
                         id="api"
-                        label="Enter Api"
+                        label="Indtast Pipedrives API-nøgle"
                         name="name"
                         type="text"
                         containerClassName="w-100 mb-3"
@@ -64,17 +64,16 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                     />
                     {localStorage.getItem('Api') ? (
                         <Button appearance="danger" onClick={handleRemove}>
-                            Remove
+                            Slet
                         </Button>
                     ) : (
                         <Button appearance="success" onClick={handleSave}>
-                            Submit
+                            Indsend
                         </Button>
                     )}
                 </div>
                 <p className="mb-0 pr-4">
-                    CRM Plugin to import Companies from Danish company register
-                    to Pipedrive
+                Denne plugin henter data fra virk.dk og overfører dem til Pipedrive
                 </p>
             </Container>
         </>

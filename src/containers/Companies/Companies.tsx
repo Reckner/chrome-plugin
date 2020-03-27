@@ -54,8 +54,8 @@ export default function Companies({ switchPage }) {
                     {
                         cvr: companyData.data['vat'],
                         name: companyData.data['name'],
-                        address: companyData.data['address'],
-                        postal_code_and_city: companyData.data['zipcode'],
+                        address: companyData.data.cityname ? companyData.data['address'] + ', ' + companyData.data.cityname : companyData.data['address'],
+                        postal_code_and_city: companyData.data['city'] + ', ' + companyData.data['zipcode'],
                     },
                 ];
             } else {
@@ -92,7 +92,7 @@ export default function Companies({ switchPage }) {
         <>
             <Alert type={type}>{allertMessage}</Alert>
             <Header className="d-flex align-items-center justify-content-between">
-                <h4 className="text-secondary mb-0">CRM Plugin</h4>
+                <h4 className="text-secondary mb-0">Find og overfør Virk-data til PD</h4>
                 <Button
                     className="align-self-end ml-4 px-0 my-auto"
                     value="ApiSetup"

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
 import deleteCompanyFromPipedrive from '../../../api/delete-company-from-pipedrive';
-import ifCompanyExistsInPipedrive from '../../../helpers/ifCompanyExistsInPipedrive';
 import updateCompanyInPipedrive from '../../../api/update-company-in-pipedrive';
 
 import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
@@ -141,7 +140,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         appearance="success"
                         className="p-0 w-100"
                         onClick={() => addButton(cvr)}
-                        title="Add Company"
+                        title="Tilføj virksomhed"
                     >
                         <AddIcon style={svgStyle} />
                     </Button>
@@ -153,7 +152,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         appearance="danger"
                         className="p-0 mx-1 w-100"
                         onClick={() => deleteButton(name)}
-                        title="Remove Company"
+                        title="Slet virksomhed"
                     >
                         <RemoveIcon style={svgStyle} />
                     </Button>
@@ -162,7 +161,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         appearance="info"
                         className="p-0 w-100"
                         onClick={() => updateButton(name, cvr)}
-                        title="Update Company"
+                        title="Opdater virksomhed"
                     >
                         <RefreshIcon style={svgStyle} />
                     </Button>
