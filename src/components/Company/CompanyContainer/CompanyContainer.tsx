@@ -79,6 +79,9 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     const addButton = async cvr => {
+        $('.btn')
+            .attr('disabled', true as any)
+            .css('pointer-events', 'none');
         setAlertType('add');
         setAllertMessage('Company has been added to Pipedrive!');
         const result = await createCompanyInPipedrive(cvr);
@@ -91,10 +94,16 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
+            $('.btn')
+                .attr('disabled', false as any)
+                .css('pointer-events', '');
         }, 1500);
     };
 
     const deleteButton = async (name: string) => {
+        $('.btn')
+            .attr('disabled', true as any)
+            .css('pointer-events', 'none');
         setAlertType('remove');
         setAllertMessage('Company has been removed from Pipedrive!');
         const result = await deleteCompanyFromPipedrive(name);
@@ -106,10 +115,16 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
+            $('.btn')
+                .attr('disabled', false as any)
+                .css('pointer-events', '');
         }, 1500);
     };
 
     const updateButton = async (name: string, cvr: number) => {
+        $('.btn')
+            .attr('disabled', true as any)
+            .css('pointer-events', 'none');
         setAlertType('update');
         setAllertMessage('Company data has been updated!');
         const result = await updateCompanyInPipedrive(name, cvr);
@@ -121,6 +136,9 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
+            $('.btn')
+                .attr('disabled', false as any)
+                .css('pointer-events', '');
         }, 1500);
     };
 
