@@ -6,4 +6,5 @@ export interface IButton {
     style?: any;
     title?: any;
     value?: string;
+    buttonDisabled?: boolean;
 }
