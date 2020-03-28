@@ -12,7 +12,7 @@ function App() {
         });
     });
 
-    switch (!localStorage.getItem('Api')) {
+    switch (!localStorage.getItem('Api') && !localStorage.getItem('customFields')) {
         case false:
             return <Private />;
         default:

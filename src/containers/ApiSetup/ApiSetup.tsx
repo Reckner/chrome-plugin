@@ -1,7 +1,8 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import classnames from 'classnames';
+import $ from 'jquery';
 
-import { Input, Button, Container, Header } from '../../components';
+import { Alert, Input, Button, Container, Header } from '../../components';
 
 import saveCustomFieldsKeysToLocalStorage from '../../helpers/saveCustomFiledsKeysToLocalStorage';
 import { CloseIcon } from '../../assets/images';
@@ -15,6 +16,8 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
     const [state, setState] = React.useState({
         Api: '',
     });
+    const [type, setType] = useState('');
+    const [allertMessage, setAllertMessage] = useState('Error');
 
     function handleChange(evt) {
         setState({ Api: evt.target.value });
@@ -23,9 +26,21 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
     const handleSave = async e => {
         e.preventDefault();
 
-        localStorage.setItem('Api', state.Api);
-        await saveCustomFieldsKeysToLocalStorage();
-        window.location.reload();
+        const responseStatus = await saveCustomFieldsKeysToLocalStorage(state.Api);
+        if(responseStatus === 401 || responseStatus === null){
+            setAllertMessage('Wrong API token');
+            setType('error');
+            ($('#alert') as any).modal({
+                backdrop: false,
+                keyboard: false,
+            });
+            setTimeout(() => {
+                ($('#alert') as any).modal('hide');
+            }, 1500);
+        } else {
+            localStorage.setItem('Api', state.Api);
+            window.location.reload();
+        }
     };
 
     const handleRemove = e => {
@@ -38,6 +53,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
 
     return (
         <>
+            <Alert type={type}>{allertMessage}</Alert>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">Find og overfør Virk-data til PD</h4>
                 <Button
