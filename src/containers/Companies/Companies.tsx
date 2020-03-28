@@ -68,7 +68,7 @@ export default function Companies({ switchPage }) {
             } else {
                 // foundCompanies = await fetchCompanies(input);
                 foundCompanies = [];
-                setAllertMessage('Response to Virk failed!');
+                setAllertMessage('Request to Virk failed!');
                 setType('error');
                 ($('#alert') as any).modal({
                     backdrop: false,
