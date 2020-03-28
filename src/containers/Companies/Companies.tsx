@@ -18,6 +18,7 @@ import { SettingsIcon, AlertIcon } from '../../assets/images';
 
 import { ICompanyContainer } from '../../models/Company';
 import getCompanyData from '../../api/get-company-data-cvrapi';
+import Confirmation from '../../components/Confirmation/Confirmation';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
@@ -109,6 +110,7 @@ export default function Companies({ switchPage }) {
     return (
         <>
             <Alert type={type}>{allertMessage}</Alert>
+            <Confirmation removeTrue='' removeFalse=''>''</Confirmation>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">
                     Find og overfør Virk-data til PD
