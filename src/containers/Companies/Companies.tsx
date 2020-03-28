@@ -48,7 +48,8 @@ export default function Companies({ switchPage }) {
 
         if (input?.length > 2) {
             let foundCompanies: ICompanyContainer[];
-            if ($.isNumeric(input)) {
+            if (true) {
+                // $.isNumeric(input)
                 const companyData = await getCompanyData(input);
                 foundCompanies = [
                     {
