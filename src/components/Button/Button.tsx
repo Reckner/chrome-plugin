@@ -10,7 +10,7 @@ const Button: React.FC<IButton> = ({
     onClick,
     style,
     title,
-    buttonDisabled,
+    disabled,
 }) => {
     const classes = classnames(
         'btn',
@@ -18,13 +18,15 @@ const Button: React.FC<IButton> = ({
         className,
     );
 
+    const styles = { ...style, pointerEvents: disabled ? 'none' : null };
+
     return (
         <button
             title={title}
             className={classes}
             onClick={onClick}
-            style={style}
-            disabled={buttonDisabled}
+            style={styles}
+            disabled={disabled}
         >
             {children}
         </button>
