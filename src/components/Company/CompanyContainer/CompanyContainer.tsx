@@ -149,7 +149,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         className="p-0 w-100"
                         onClick={() => addButton(cvr)}
                         title="Tilføj virksomhed"
-                        buttonDisabled={buttonDisabled}
+                        disabled={buttonDisabled}
                     >
                         <AddIcon style={svgStyle} />
                     </Button>
@@ -162,7 +162,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         className="p-0 mx-1 w-100"
                         onClick={() => deleteButton(name)}
                         title="Slet virksomhed"
-                        buttonDisabled={buttonDisabled}
+                        disabled={buttonDisabled}
                     >
                         <RemoveIcon style={svgStyle} />
                     </Button>
@@ -172,7 +172,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         className="p-0 w-100"
                         onClick={() => updateButton(name, cvr)}
                         title="Opdater virksomhed"
-                        buttonDisabled={buttonDisabled}
+                        disabled={buttonDisabled}
                     >
                         <RefreshIcon style={svgStyle} />
                     </Button>
