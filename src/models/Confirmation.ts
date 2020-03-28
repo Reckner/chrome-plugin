@@ -1,5 +1,7 @@
 export interface IConfirmation {
+    target: string | null;
     children: string;
-    removeFalse: string;
-    removeTrue: string;
+    isVisible: boolean;
+    setVisibility: any;
+    deleteCompany: any;
 }

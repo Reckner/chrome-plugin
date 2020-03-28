@@ -9,6 +9,7 @@ import updateCompanyInPipedrive from '../../../api/update-company-in-pipedrive';
 import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 import Button from '../../Button/Button';
 
+import Confirmation from '../../Confirmation/Confirmation';
 import { ICompanyContainer } from '../../../models/Company';
 
 const svgStyle = {
@@ -31,8 +32,13 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     setCompanies,
     setAlertType,
     setAllertMessage,
+    isVisibleConfirmation,
+    setVisibilityConfirmation,
 }) => {
     const [buttonDisabled, setButtonDisable] = useState(false);
+    const [confirmationTarget, setConfirmationTarget] = useState<string | null>(
+        null,
+    );
 
     useEffect(() => {
         $('.companyName').hover(
@@ -98,7 +104,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         }, 1500);
     };
 
-    const deleteButton = async (name: string) => {
+    const deleteCompany = async (name: string) => {
         setButtonDisable(true);
         setAlertType('remove');
         setAllertMessage('Virksomheden er fjernet fra Pipedrive!');
@@ -133,52 +139,71 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     return (
-        <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
-            <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
-                <h3 className="mb-0 text-truncate w-75 companyName">{name}</h3>
-                <p className="mb-0">
-                    {address}, {postal_code_and_city}
-                </p>
-                <p className="mb-0">CVR {cvr}</p>
-            </div>
-            {!companyExist ? (
-                <div className="d-flex flex-fill justify-content-end">
-                    <Button
-                        style={buttonStyle}
-                        appearance="success"
-                        className="p-0 w-100"
-                        onClick={() => addButton(cvr)}
-                        title="Tilføj virksomhed"
-                        disabled={buttonDisabled}
-                    >
-                        <AddIcon style={svgStyle} />
-                    </Button>
-                </div>
+        <>
+            {isVisibleConfirmation ? (
+                <Confirmation
+                    target={confirmationTarget}
+                    isVisible={isVisibleConfirmation}
+                    setVisibility={setVisibilityConfirmation}
+                    deleteCompany={deleteCompany}
+                >
+                    {confirmationTarget || ''}
+                </Confirmation>
             ) : (
-                <div className="d-flex flex-fill justify-content-end">
-                    <Button
-                        style={buttonStyle}
-                        appearance="danger"
-                        className="p-0 mx-1 w-100"
-                        onClick={() => deleteButton(name)}
-                        title="Slet virksomhed"
-                        disabled={buttonDisabled}
-                    >
-                        <RemoveIcon style={svgStyle} />
-                    </Button>
-                    <Button
-                        style={buttonStyle}
-                        appearance="info"
-                        className="p-0 w-100"
-                        onClick={() => updateButton(name, cvr)}
-                        title="Opdater virksomhed"
-                        disabled={buttonDisabled}
-                    >
-                        <RefreshIcon style={svgStyle} />
-                    </Button>
-                </div>
+                <></>
             )}
-        </div>
+            <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
+                <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
+                    <h3 className="mb-0 text-truncate w-75 companyName">
+                        {name}
+                    </h3>
+                    <p className="mb-0">
+                        {address}, {postal_code_and_city}
+                    </p>
+                    <p className="mb-0">CVR {cvr}</p>
+                </div>
+                {!companyExist ? (
+                    <div className="d-flex flex-fill justify-content-end">
+                        <Button
+                            style={buttonStyle}
+                            appearance="success"
+                            className="p-0 w-100"
+                            onClick={() => addButton(cvr)}
+                            title="Tilføj virksomhed"
+                            disabled={buttonDisabled}
+                        >
+                            <AddIcon style={svgStyle} />
+                        </Button>
+                    </div>
+                ) : (
+                    <div className="d-flex flex-fill justify-content-end">
+                        <Button
+                            style={buttonStyle}
+                            appearance="danger"
+                            className="p-0 mx-1 w-100"
+                            onClick={() => {
+                                setConfirmationTarget(name);
+                                setVisibilityConfirmation(true);
+                            }}
+                            title="Slet virksomhed"
+                            disabled={buttonDisabled}
+                        >
+                            <RemoveIcon style={svgStyle} />
+                        </Button>
+                        <Button
+                            style={buttonStyle}
+                            appearance="info"
+                            className="p-0 w-100"
+                            onClick={() => updateButton(name, cvr)}
+                            title="Opdater virksomhed"
+                            disabled={buttonDisabled}
+                        >
+                            <RefreshIcon style={svgStyle} />
+                        </Button>
+                    </div>
+                )}
+            </div>
+        </>
     );
 };
 

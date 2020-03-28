@@ -27,6 +27,8 @@ export default function Companies({ switchPage }) {
     const [type, setType] = useState('');
     const [allertMessage, setAllertMessage] = useState('Error');
 
+    const [isVisibleConfirmation, setVisibilityConfirmation] = useState(false);
+
     const handleSearch = e => {
         e.persist();
         const search = document.querySelector('#search');
@@ -110,7 +112,6 @@ export default function Companies({ switchPage }) {
     return (
         <>
             <Alert type={type}>{allertMessage}</Alert>
-            <Confirmation removeTrue='' removeFalse=''>''</Confirmation>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">
                     Find og overfør Virk-data til PD
@@ -160,6 +161,12 @@ export default function Companies({ switchPage }) {
                                     setCompanies={setCompanies}
                                     setAlertType={setType}
                                     setAllertMessage={setAllertMessage}
+                                    isVisibleConfirmation={
+                                        isVisibleConfirmation
+                                    }
+                                    setVisibilityConfirmation={
+                                        setVisibilityConfirmation
+                                    }
                                 />
                             );
                         })}

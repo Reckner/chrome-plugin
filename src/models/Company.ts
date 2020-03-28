@@ -12,4 +12,6 @@ export interface ICompanyContainer {
     type?: string;
     setAlertType?: any;
     setAllertMessage?: any;
+    isVisibleConfirmation?: boolean;
+    setVisibilityConfirmation?: any;
 }
