@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import $ from 'jquery';
 import classnames from 'classnames';
 
@@ -32,6 +32,8 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     setAlertType,
     setAllertMessage,
 }) => {
+    const [buttonDisabled, setButtonDisable] = useState(false);
+
     useEffect(() => {
         $('.companyName').hover(
             function() {
@@ -79,9 +81,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     const addButton = async cvr => {
-        $('.btn')
-            .attr('disabled', true as any)
-            .css('pointer-events', 'none');
+        setButtonDisable(true);
         setAlertType('add');
         setAllertMessage('Company has been added to Pipedrive!');
         const result = await createCompanyInPipedrive(cvr);
@@ -94,16 +94,12 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
-            $('.btn')
-                .attr('disabled', false as any)
-                .css('pointer-events', '');
+            setButtonDisable(false);
         }, 1500);
     };
 
     const deleteButton = async (name: string) => {
-        $('.btn')
-            .attr('disabled', true as any)
-            .css('pointer-events', 'none');
+        setButtonDisable(true);
         setAlertType('remove');
         setAllertMessage('Company has been removed from Pipedrive!');
         const result = await deleteCompanyFromPipedrive(name);
@@ -115,16 +111,12 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
-            $('.btn')
-                .attr('disabled', false as any)
-                .css('pointer-events', '');
+            setButtonDisable(false);
         }, 1500);
     };
 
     const updateButton = async (name: string, cvr: number) => {
-        $('.btn')
-            .attr('disabled', true as any)
-            .css('pointer-events', 'none');
+        setButtonDisable(true);
         setAlertType('update');
         setAllertMessage('Company data has been updated!');
         const result = await updateCompanyInPipedrive(name, cvr);
@@ -136,9 +128,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
-            $('.btn')
-                .attr('disabled', false as any)
-                .css('pointer-events', '');
+            setButtonDisable(false);
         }, 1500);
     };
 
@@ -159,6 +149,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         className="p-0 w-100"
                         onClick={() => addButton(cvr)}
                         title="Tilføj virksomhed"
+                        buttonDisabled={buttonDisabled}
                     >
                         <AddIcon style={svgStyle} />
                     </Button>
@@ -171,6 +162,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         className="p-0 mx-1 w-100"
                         onClick={() => deleteButton(name)}
                         title="Slet virksomhed"
+                        buttonDisabled={buttonDisabled}
                     >
                         <RemoveIcon style={svgStyle} />
                     </Button>
@@ -180,6 +172,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                         className="p-0 w-100"
                         onClick={() => updateButton(name, cvr)}
                         title="Opdater virksomhed"
+                        buttonDisabled={buttonDisabled}
                     >
                         <RefreshIcon style={svgStyle} />
                     </Button>
