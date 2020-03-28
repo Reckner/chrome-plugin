@@ -83,11 +83,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             .attr('disabled', true as any)
             .css('pointer-events', 'none');
         setAlertType('add');
-        setAllertMessage('Company has been added to Pipedrive!');
+        setAllertMessage('Virksomheden er tilføjet til Pipedrive!');
         const result = await createCompanyInPipedrive(cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
-            setAllertMessage('Error Adding Company!');
+            setAllertMessage('Fejl ved tilføjelse af virksomheden!');
         }
         updateCompaniesAfterAdding();
 
@@ -105,11 +105,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             .attr('disabled', true as any)
             .css('pointer-events', 'none');
         setAlertType('remove');
-        setAllertMessage('Company has been removed from Pipedrive!');
+        setAllertMessage('Virksomheden er fjernet fra Pipedrive!');
         const result = await deleteCompanyFromPipedrive(name);
         if (result?.data?.success !== true) {
             setAlertType('error');
-            setAllertMessage('Error Deleting Company!');
+            setAllertMessage('Fejl ved sletning af virksomheden!');
         }
         updateCompaniesAfterDeleting();
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
@@ -126,11 +126,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             .attr('disabled', true as any)
             .css('pointer-events', 'none');
         setAlertType('update');
-        setAllertMessage('Company data has been updated!');
+        setAllertMessage('Virksomhedsdata er opdateret!');
         const result = await updateCompanyInPipedrive(name, cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
-            setAllertMessage('Error Updating Company Data!');
+            setAllertMessage('Fejl ved opdatering af virksomhedsdata!');
         }
 
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });

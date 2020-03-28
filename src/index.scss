@@ -1,12 +1,14 @@
+@import './assets/variables.scss';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~bootstrap/scss/bootstrap';
+
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 0;
+    padding: 0 !important;
 
     height: 600px;
     width: 500px;
