@@ -32,7 +32,7 @@ const Alert: React.FC<IAlert> = ({ children, type }) => {
                     <div className="d-flex flex-column align-items-center py-2">
                         {type === 'add' ? (
                             <CompanyAddIcon className="mb-1" />
-                        ) : null}   
+                        ) : null}
                         {type === 'remove' ? (
                             <CompanyRemoveIcon className="mb-1" />
                         ) : null}
