@@ -28,7 +28,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
 
         const responseStatus = await saveCustomFieldsKeysToLocalStorage(state.Api);
         if(responseStatus === 401 || responseStatus === null){
-            setAllertMessage('Wrong API token');
+            setAllertMessage('Forkert API-nøgle!');
             setType('error');
             ($('#alert') as any).modal({
                 backdrop: false,

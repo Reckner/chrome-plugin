@@ -41,8 +41,8 @@ const Confirmation: React.FC<IConfirmation> = ({
                             <div className="modal-content border shadow">
                                 <div className="d-flex flex-column align-items-center p-3">
                                     <p className="mx-3">
-                                        Delete <strong>{children}</strong>{' '}
-                                        company from PipeDrive?
+                                        Fjern <strong>{children}</strong>{' '}
+                                        virksomhed fra Pipedrive?
                                     </p>
                                     <div className="d-flex w-100">
                                         <Button
@@ -50,14 +50,14 @@ const Confirmation: React.FC<IConfirmation> = ({
                                             className="mx-1 w-100"
                                             onClick={handleYes}
                                         >
-                                            Yes
+                                            Ja
                                         </Button>
                                         <Button
                                             appearance="info"
                                             className="mx-1 w-100"
                                             onClick={handleNo}
                                         >
-                                            No
+                                            Nej
                                         </Button>
                                     </div>
                                 </div>
