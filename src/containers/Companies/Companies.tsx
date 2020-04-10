@@ -12,7 +12,6 @@ import {
 } from '../../components';
 
 import ifCompanyExistsInPipedrive from '../../helpers/ifCompanyExistsInPipedrive';
-import { fetchCompanies } from '../../api/fetch-companies-from-virk';
 
 import { SettingsIcon, AlertIcon } from '../../assets/images';
 
@@ -29,22 +28,22 @@ export default function Companies({ switchPage }) {
 
     const [isVisibleConfirmation, setVisibilityConfirmation] = useState(false);
 
-    const handleSearch = e => {
+    const handleSearch = (e) => {
         e.persist();
         const search = document.querySelector('#search');
-        search?.addEventListener('keyup', function(this) {
+        search?.addEventListener('keyup', function (this) {
             setIsLoading(true);
             // clears timeout before starting new one
             clearTimeout(this.timeoutKeyUp);
 
             // creating new timeout
-            this.timeoutKeyUp = setTimeout(function() {
+            this.timeoutKeyUp = setTimeout(function () {
                 handleRequest(e);
             }, 500);
         });
     };
 
-    const handleRequest = async e => {
+    const handleRequest = async (e) => {
         const { value: input } = e.target;
 
         setIsLoading(true);
@@ -95,7 +94,7 @@ export default function Companies({ switchPage }) {
 
     const checkedCompanies = (companies: ICompanyContainer[]) => {
         const formatted = Promise.all(
-            companies.map(async company => {
+            companies.map(async (company) => {
                 if (await ifCompanyExistsInPipedrive(company.name || '')) {
                     return {
                         ...company,
@@ -146,7 +145,7 @@ export default function Companies({ switchPage }) {
                     </div>
                 ) : (
                     <Company.CompanyList>
-                        {companies.map(company => {
+                        {companies.map((company) => {
                             return (
                                 <Company.CompanyContainer
                                     key={company.cvr}
