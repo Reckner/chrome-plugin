@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as virkApi from './virkApi';
 import { getApiToken } from '../helpers/getApiToken';
 
 const getCompanyByNamePipedrive = async (name: string) => {
@@ -7,16 +6,6 @@ const getCompanyByNamePipedrive = async (name: string) => {
     const response = await axios.get(
         `https://app.pipedrive.com/v1/organizations/find?term=${search}&start=0&api_token=${getApiToken()}`,
     );
-
-    // const r = await virkApi.searchByCompanyName('RUBEN').catch((err) => {
-    //     throw new Error(err);
-    // });
-
-    const r = await virkApi.searchByCVR(21626783).catch((err) => {
-        throw new Error(err);
-    });
-
-    console.log(r);
 
     const { data } = response.data;
 

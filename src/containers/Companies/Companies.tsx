@@ -17,7 +17,7 @@ import { SettingsIcon, AlertIcon } from '../../assets/images';
 
 import { ICompanyContainer } from '../../models/Company';
 import getCompanyData from '../../api/get-company-data-cvrapi';
-import Confirmation from '../../components/Confirmation/Confirmation';
+import * as virkApi from '../../api/virkApi';
 
 export default function Companies({ switchPage }) {
     const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
@@ -49,9 +49,8 @@ export default function Companies({ switchPage }) {
         setIsLoading(true);
 
         if (input?.length > 2) {
-            let foundCompanies: ICompanyContainer[];
-            if (true) {
-                // $.isNumeric(input)
+            let foundCompanies;
+            if ($.isNumeric(input)) {
                 const companyData = await getCompanyData(input);
                 foundCompanies = [
                     {
@@ -69,8 +68,7 @@ export default function Companies({ switchPage }) {
                     },
                 ];
             } else {
-                // foundCompanies = await fetchCompanies(input);
-                foundCompanies = [];
+                foundCompanies = await virkApi.searchByCompanyName(input);
                 setAllertMessage('Request to Virk failed!');
                 setType('error');
                 ($('#alert') as any).modal({
