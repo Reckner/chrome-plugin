@@ -18,8 +18,16 @@ export async function searchByCompanyName(
     const response = await axios
         .post(
             config.url ||
-                `${proxy}http://distribution.virk.dk/cvr-permanent/_search`,
+                `${proxy}http://distribution.virk.dk/cvr-permanent/virksomhed/_search`,
             {
+                _source: ["Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn", "Vrvirksomhed.cvrNummer", "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.husnummerFra", 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.vejnavn", "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.postnummer", 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.postdistrikt", "Vrvirksomhed.telefonNummer", "Vrvirksomhed.virksomhedMetadata.nyesteKontaktoplysninger", 
+                    "Vrvirksomhed.virksomhedMetadata.stiftelsesDato" ,"Vrvirksomhed.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse" , 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteHovedbranche.branchekode", "Vrvirksomhed.virksomhedMetadata.nyesteHovedbranche.branchetekst",  
+                    "Vrvirksomhed.virksomhedMetadata.nyesteVirksomhedsform.kortBeskrivelse", "Vrvirksomhed.reklamebeskyttet", "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.bynavn", 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn", "Vrvirksomhed.virksomhedMetadata.nyesteAarsbeskaeftigelse.intervalKodeAntalAnsatte", 
+                    "Vrvirksomhed.virksomhedMetadata.sammensatStatus"],
                 query: {
                     match: {
                         'Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn': {
@@ -55,10 +63,17 @@ export async function searchByCVR(cvr: number, config: virkApiConfig = {}) {
             config.url ||
                 `${proxy}http://distribution.virk.dk/cvr-permanent/virksomhed/_search`,
             {
-                _source: 'Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn',
+                _source: ["Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn", "Vrvirksomhed.cvrNummer", "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.husnummerFra", 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.vejnavn", "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.postnummer", 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.postdistrikt", "Vrvirksomhed.telefonNummer", "Vrvirksomhed.virksomhedMetadata.nyesteKontaktoplysninger", 
+                    "Vrvirksomhed.virksomhedMetadata.stiftelsesDato" ,"Vrvirksomhed.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse" , 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteHovedbranche.branchekode", "Vrvirksomhed.virksomhedMetadata.nyesteHovedbranche.branchetekst",  
+                    "Vrvirksomhed.virksomhedMetadata.nyesteVirksomhedsform.kortBeskrivelse", "Vrvirksomhed.reklamebeskyttet", "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.bynavn", 
+                    "Vrvirksomhed.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn", "Vrvirksomhed.virksomhedMetadata.nyesteAarsbeskaeftigelse.intervalKodeAntalAnsatte", 
+                    "Vrvirksomhed.virksomhedMetadata.sammensatStatus"],
                 query: {
                     term: {
-                        'Vrvirksomhed.cvrNummer': 33966121,
+                        'Vrvirksomhed.cvrNummer': cvr,
                     },
                 },
             },
