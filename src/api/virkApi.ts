@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { VirkResponse, CompanyData } from '../models/Virk/VirkResponse';
+import { VirkResponse, CompanyData } from '../models/VirkResponse';
 
 const username = 'ehsj.dk_CVR_I_SKYEN';
 const password = 'c5003ca2-efaf-4312-b914-17cdeb4ea6ea';
