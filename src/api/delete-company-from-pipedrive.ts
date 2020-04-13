@@ -10,15 +10,15 @@ const deleteCompanyFromPipedrive = async (name: string): Promise<any> => {
     return new Promise(async (resolve, reject) => {
         if (_.isArray(companies)) {
             for (const company of companies) {
-                if (company.name.trim() === name.trim()) {
+                if (company.item.name.trim() === name.trim()) {
                     resolve(
                         await axios
                             .delete(
                                 `https://api.pipedrive.com/v1/organizations/${
-                                    company.id
+                                    company.item.id
                                 }?api_token=${getApiToken()}`,
                             )
-                            .catch(err => reject(err)),
+                            .catch((err) => reject(err)),
                     );
                 }
             }

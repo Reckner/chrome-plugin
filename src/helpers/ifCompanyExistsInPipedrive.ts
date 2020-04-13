@@ -7,8 +7,8 @@ const ifCompanyExistsInPipedrive = async (name: string): Promise<boolean> => {
     let result = false;
 
     if (!_.isEmpty(companies)) {
-        companies.forEach(company => {
-            if (company.name.trim() === name.trim()) {
+        companies.forEach((company) => {
+            if (company.item.name.trim() === name.trim()) {
                 result = true;
             }
         });

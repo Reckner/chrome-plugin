@@ -68,19 +68,21 @@ export default function Companies({ switchPage }) {
                     },
                 ];
             } else {
-                foundCompanies = await virkApi.searchByCompanyName(input);
-                // setAllertMessage('Request to Virk failed!');
-                // setType('error');
-                // ($('#alert') as any).modal({
-                //     backdrop: false,
-                //     keyboard: false,
-                // });
+                foundCompanies = await virkApi
+                    .searchByCompanyName(input)
+                    .catch(() => {
+                        setAllertMessage('Request to Virk failed!');
+                        setType('error');
+                        ($('#alert') as any).modal({
+                            backdrop: false,
+                            keyboard: false,
+                        });
+                    });
+
                 setTimeout(() => {
                     ($('#alert') as any).modal('hide');
                 }, 1500);
             }
-
-            console.log(foundCompanies);
 
             setCompanies(await checkedCompanies(foundCompanies));
             setIsLoading(false);

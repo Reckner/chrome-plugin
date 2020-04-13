@@ -15,7 +15,7 @@ const proxy = 'http://degit.org:8099/';
 export async function searchByCompanyName(
     query: string,
     config: virkApiConfig = {},
-): Promise<CompanyData[]> {
+): Promise<Object[]> {
     const response: VirkResponse = await axios
         .post(
             config.url ||
@@ -70,19 +70,43 @@ export async function searchByCompanyName(
     const companiesFormated: object[] = [];
     for (const company of companies) {
         companiesFormated.push({
-            cvr: company['cvrNummer'],
-            name: company['virksomhedMetadata']['nyesteNavn']['navn'],
-            postal_code_and_city:
-                company['virksomhedMetadata']['nyesteBeliggenhedsadresse'][
-                    'postnummer'
-                ],
-            address: `${company['virksomhedMetadata']['nyesteBeliggenhedsadresse']['vejnavn']} ${company['virksomhedMetadata']['nyesteBeliggenhedsadresse']['husnummerFra']}`,
+            cvr: company.cvrNummer,
+            name: company.virksomhedMetadata.nyesteNavn.navn.replace(
+                /\s\s+/g,
+                ' ',
+            ),
+            postal_code_and_city: `${company.virksomhedMetadata.nyesteBeliggenhedsadresse.postdistrikt}, ${company.virksomhedMetadata.nyesteBeliggenhedsadresse.postnummer}`,
+            address: createAddress(company),
         });
     }
 
-    console.log(companiesFormated);
+    return companiesFormated;
+}
 
-    return companies;
+function createAddress(company: CompanyData) {
+    const streetName =
+        company.virksomhedMetadata.nyesteBeliggenhedsadresse.vejnavn;
+    const houseNumber =
+        company.virksomhedMetadata.nyesteBeliggenhedsadresse.husnummerFra;
+    const floor = company.virksomhedMetadata.nyesteBeliggenhedsadresse.etage;
+    const sideDoor =
+        company.virksomhedMetadata.nyesteBeliggenhedsadresse.sidedoer;
+
+    let address: string;
+
+    address = `${streetName} ${houseNumber}`;
+    if (floor) {
+        address += `, ${floor}.`;
+    }
+
+    if (sideDoor) {
+        if (floor === null) {
+            address += ',';
+        }
+        address += ` ${sideDoor}.`;
+    }
+
+    return address;
 }
 
 export async function searchByCVR(cvr: number, config: virkApiConfig = {}) {

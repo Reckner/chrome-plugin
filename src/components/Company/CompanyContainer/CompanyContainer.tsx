@@ -11,6 +11,7 @@ import Button from '../../Button/Button';
 
 import Confirmation from '../../Confirmation/Confirmation';
 import { ICompanyContainer } from '../../../models/Company';
+import { Company } from '../..';
 
 const svgStyle = {
     height: '25px',
@@ -42,12 +43,12 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
 
     useEffect(() => {
         $('.companyName').hover(
-            function() {
+            function () {
                 if (this.offsetWidth < this.scrollWidth) {
                     $(this).attr('title', $(this).text());
                 }
             },
-            function() {
+            function () {
                 $(this).removeAttr('title');
             },
         );
@@ -58,7 +59,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             let newCompanies = [...companies];
 
             setCompanies(
-                newCompanies.map(c => {
+                newCompanies.map((c) => {
                     if (c.cvr === cvr) {
                         return {
                             ...c,
@@ -74,7 +75,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     const updateCompaniesAfterDeleting = () => {
         let newCompanies = [...companies];
         setCompanies(
-            newCompanies.map(c => {
+            newCompanies.map((c) => {
                 if (c.name === name) {
                     return {
                         ...c,
@@ -86,7 +87,13 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         );
     };
 
-    const addButton = async cvr => {
+    const addButton = async (cvr) => {
+        console.log(
+            companies?.filter((company) => {
+                return company.cvr === cvr;
+            }),
+        );
+
         setButtonDisable(true);
         setAlertType('add');
         setAllertMessage('Virksomheden er tilføjet til Pipedrive!');
