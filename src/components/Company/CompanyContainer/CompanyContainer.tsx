@@ -87,11 +87,9 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     };
 
     const addButton = async (cvr) => {
-        console.log(
-            companies?.filter((company) => {
-                return company.cvr === cvr;
-            }),
-        );
+        companies?.filter((company) => {
+            return company.cvr === cvr;
+        });
 
         setButtonDisable(true);
         setAlertType('add');
@@ -146,15 +144,14 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
 
     return (
         <>
-            {isVisibleConfirmation ? (
+            {isVisibleConfirmation && confirmationTarget ? (
                 <Confirmation
                     target={confirmationTarget}
                     isVisible={isVisibleConfirmation}
                     setVisibility={setVisibilityConfirmation}
+                    setConfirmationTarget={setConfirmationTarget}
                     deleteCompany={deleteCompany}
-                >
-                    {confirmationTarget || ''}
-                </Confirmation>
+                />
             ) : (
                 <></>
             )}

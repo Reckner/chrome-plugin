@@ -4,11 +4,11 @@ import { IConfirmation } from '../../models/Confirmation';
 import Button from '../Button/Button';
 
 const Confirmation: React.FC<IConfirmation> = ({
-    children,
     deleteCompany,
     isVisible,
     setVisibility,
     target,
+    setConfirmationTarget,
 }) => {
     const styles = {
         display: 'block',
@@ -26,6 +26,7 @@ const Confirmation: React.FC<IConfirmation> = ({
 
     const handleNo = () => {
         setVisibility(false);
+        setConfirmationTarget(null);
     };
 
     return (
@@ -41,7 +42,7 @@ const Confirmation: React.FC<IConfirmation> = ({
                             <div className="modal-content border shadow">
                                 <div className="d-flex flex-column align-items-center p-3">
                                     <p className="mx-3">
-                                        Fjern <strong>{children}</strong>{' '}
+                                        Fjern <strong>{target}</strong>{' '}
                                         virksomhed fra Pipedrive?
                                     </p>
                                     <div className="d-flex w-100">
