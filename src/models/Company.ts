@@ -17,7 +17,7 @@ export interface ICompanyContainer {
     industry_code?: string;
     industry_description?: string;
     сompany_description?: string;
-    setAllertMessage?: any;
+    setAlertMessage?: any;
     isVisibleConfirmation?: boolean;
     setVisibilityConfirmation?: any;
 }
