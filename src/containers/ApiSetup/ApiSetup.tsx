@@ -23,11 +23,13 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
         setState({ Api: evt.target.value });
     }
 
-    const handleSave = async e => {
+    const handleSave = async (e) => {
         e.preventDefault();
 
-        const responseStatus = await saveCustomFieldsKeysToLocalStorage(state.Api);
-        if(responseStatus === 401 || responseStatus === null){
+        const responseStatus = await saveCustomFieldsKeysToLocalStorage(
+            state.Api,
+        );
+        if (responseStatus === 401 || responseStatus === null) {
             setAlertMessage('Forkert API-nøgle!');
             setType('error');
             ($('#alert') as any).modal({
@@ -39,11 +41,20 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
             }, 1500);
         } else {
             localStorage.setItem('Api', state.Api);
-            window.location.reload();
+            setAlertMessage('API-nøgle er blevet tilføjet!');
+            setType('add');
+            ($('#alert') as any).modal({
+                backdrop: false,
+                keyboard: false,
+            });
+            setTimeout(() => {
+                ($('#alert') as any).modal('hide');
+                window.location.reload();
+            }, 1500);
         }
     };
 
-    const handleRemove = e => {
+    const handleRemove = (e) => {
         e.preventDefault();
 
         localStorage.removeItem('Api');
@@ -55,7 +66,9 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
         <>
             <Alert type={type}>{alertMessage}</Alert>
             <Header className="d-flex align-items-center justify-content-between">
-                <h4 className="text-secondary mb-0">Find og overfør Virk-data til PD</h4>
+                <h4 className="text-secondary mb-0">
+                    Find og overfør Virk-data til PD
+                </h4>
                 <Button
                     onClick={() => switchPage('default')}
                     className={classnames('align-self-end ml-4 px-0 my-auto', {
@@ -89,7 +102,8 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                     )}
                 </div>
                 <p className="mb-0 pr-4">
-                Denne plugin henter data fra virk.dk og overfører dem til Pipedrive
+                    Denne plugin henter data fra virk.dk og overfører dem til
+                    Pipedrive
                 </p>
             </Container>
         </>
