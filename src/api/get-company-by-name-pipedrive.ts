@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getApiToken } from '../helpers/getApiToken';
-import getCustomFields from '../helpers/getCustomFields';
 
 const getCompanyByNamePipedrive = async (name: string) => {
     const search = name.replace(/ /g, '%20');

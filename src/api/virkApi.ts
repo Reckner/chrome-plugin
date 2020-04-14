@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { VirkResponse, CompanyData } from '../models/VirkResponse';
+import { VirkResponse, CompanyData, Phone } from '../models/VirkResponse';
+import { ICompanyContainer } from '../models/Company';
 
 const username = 'ehsj.dk_CVR_I_SKYEN';
 const password = 'c5003ca2-efaf-4312-b914-17cdeb4ea6ea';
@@ -15,7 +16,7 @@ const proxy = 'http://degit.org:8099/';
 export async function searchByCompanyName(
     query: string,
     config: virkApiConfig = {},
-): Promise<Object[]> {
+): Promise<ICompanyContainer[]> {
     const response: VirkResponse = await axios
         .post(
             config.url ||
@@ -67,7 +68,7 @@ export async function searchByCompanyName(
         companies.push(doc._source.Vrvirksomhed);
     }
 
-    const companiesFormated: object[] = [];
+    const companiesFormated: ICompanyContainer[] = [];
     for (const company of companies) {
         companiesFormated.push({
             cvr: company.cvrNummer,
@@ -77,10 +78,46 @@ export async function searchByCompanyName(
             ),
             postal_code_and_city: `${company.virksomhedMetadata.nyesteBeliggenhedsadresse.postdistrikt}, ${company.virksomhedMetadata.nyesteBeliggenhedsadresse.postnummer}`,
             address: createAddress(company),
+            phone: preparePhone(company.telefonNummer),
+            start_date: company.virksomhedMetadata.stiftelsesDato,
+            employees: createEmployees(company.virksomhedMetadata?.nyesteAarsbeskaeftigelse?.intervalKodeAntalAnsatte),
+            industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
+            industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
+            сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.kortBeskrivelse,
+            status: company.virksomhedMetadata.sammensatStatus,
+            advertising_protection: prepareAdStatus(company.reklamebeskyttet),
+            commune: company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn
         });
     }
 
     return companiesFormated;
+}
+
+function preparePhone(phones: Phone[]){
+    return 55555;
+}
+
+function prepareAdStatus(input: boolean){
+    if(input){
+        return 'Ja';
+    } else {
+        return 'Nej';
+    }
+}
+
+function createEmployees(input: any){
+    if(input){
+        const start = input.split('_')[1];
+        const end = input.split('_')[2];
+    
+        if(start === '0' && end === '0'){
+            return '0';
+        } else {
+          return `${start}-${end}`;
+        }
+    } else {
+        return 'Ingen data';
+    }
 }
 
 function createAddress(company: CompanyData) {

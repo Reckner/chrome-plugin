@@ -7,10 +7,16 @@ export interface ICompanyContainer {
     name: string;
     postal_code_and_city?: string;
     setCompanies?: any;
-    start_date?: string;
+    start_date?: Date;
     status?: string;
     type?: string;
     setAlertType?: any;
+    phone?: number;
+    employees?: string;
+    commune?: string;
+    industry_code?: string;
+    industry_description?: string;
+    сompany_description?: string;
     setAllertMessage?: any;
     isVisibleConfirmation?: boolean;
     setVisibilityConfirmation?: any;

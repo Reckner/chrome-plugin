@@ -49,7 +49,7 @@ export default function Companies({ switchPage }) {
         setIsLoading(true);
 
         if (input?.length > 2) {
-            let foundCompanies;
+            let foundCompanies: ICompanyContainer[];
             if ($.isNumeric(input)) {
                 const companyData = await getCompanyData(input);
                 foundCompanies = [
@@ -70,13 +70,14 @@ export default function Companies({ switchPage }) {
             } else {
                 foundCompanies = await virkApi
                     .searchByCompanyName(input)
-                    .catch(() => {
+                    .catch((): ICompanyContainer[] => {
                         setAllertMessage('Request to Virk failed!');
                         setType('error');
                         ($('#alert') as any).modal({
                             backdrop: false,
                             keyboard: false,
                         });
+                        return [];
                     });
 
                 setTimeout(() => {

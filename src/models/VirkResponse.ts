@@ -31,7 +31,7 @@ export interface CompanyData{
     virksomhedMetadata: CompanyMetaData;
 }
 
-export default interface Phone{
+export interface Phone{
     sidstOpdateret: Date;
     hemmelig: boolean;
     kontaktoplysning: number;
