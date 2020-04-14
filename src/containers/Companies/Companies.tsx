@@ -24,7 +24,7 @@ export default function Companies({ switchPage }) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [search, setSearch] = useState(null);
     const [type, setType] = useState('');
-    const [allertMessage, setAllertMessage] = useState('Error');
+    const [alertMessage, setAlertMessage] = useState('Error');
 
     const [isVisibleConfirmation, setVisibilityConfirmation] = useState(false);
 
@@ -71,7 +71,7 @@ export default function Companies({ switchPage }) {
                 foundCompanies = await virkApi
                     .searchByCompanyName(input)
                     .catch(() => {
-                        setAllertMessage('Request to Virk failed!');
+                        setAlertMessage('Request to Virk failed!');
                         setType('error');
                         ($('#alert') as any).modal({
                             backdrop: false,
@@ -112,7 +112,7 @@ export default function Companies({ switchPage }) {
 
     return (
         <>
-            <Alert type={type}>{allertMessage}</Alert>
+            <Alert type={type}>{alertMessage}</Alert>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">
                     Find og overfør Virk-data til PD
@@ -161,7 +161,7 @@ export default function Companies({ switchPage }) {
                                     companies={companies}
                                     setCompanies={setCompanies}
                                     setAlertType={setType}
-                                    setAllertMessage={setAllertMessage}
+                                    setAlertMessage={setAlertMessage}
                                     isVisibleConfirmation={
                                         isVisibleConfirmation
                                     }

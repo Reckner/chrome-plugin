@@ -1,7 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { getApiToken } from '../helpers/getApiToken';
-
 interface respObject {
     keys: object[] | null,
     response: AxiosResponse<any> | null

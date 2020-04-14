@@ -11,7 +11,6 @@ import Button from '../../Button/Button';
 
 import Confirmation from '../../Confirmation/Confirmation';
 import { ICompanyContainer } from '../../../models/Company';
-import { Company } from '../..';
 
 const svgStyle = {
     height: '25px',
@@ -32,7 +31,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     companies,
     setCompanies,
     setAlertType,
-    setAllertMessage,
+    setAlertMessage,
     isVisibleConfirmation,
     setVisibilityConfirmation,
 }) => {
@@ -96,11 +95,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
 
         setButtonDisable(true);
         setAlertType('add');
-        setAllertMessage('Virksomheden er tilføjet til Pipedrive!');
+        setAlertMessage('Virksomheden er tilføjet til Pipedrive!');
         const result = await createCompanyInPipedrive(cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
-            setAllertMessage('Fejl ved tilføjelse af virksomheden!');
+            setAlertMessage('Fejl ved tilføjelse af virksomheden!');
         }
         updateCompaniesAfterAdding();
 
@@ -114,11 +113,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     const deleteCompany = async (name: string) => {
         setButtonDisable(true);
         setAlertType('remove');
-        setAllertMessage('Virksomheden er fjernet fra Pipedrive!');
+        setAlertMessage('Virksomheden er fjernet fra Pipedrive!');
         const result = await deleteCompanyFromPipedrive(name);
         if (result?.data?.success !== true) {
             setAlertType('error');
-            setAllertMessage('Fejl ved sletning af virksomheden!');
+            setAlertMessage('Fejl ved sletning af virksomheden!');
         }
         updateCompaniesAfterDeleting();
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
@@ -131,11 +130,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     const updateButton = async (name: string, cvr: number) => {
         setButtonDisable(true);
         setAlertType('update');
-        setAllertMessage('Virksomhedsdata er opdateret!');
+        setAlertMessage('Virksomhedsdata er opdateret!');
         const result = await updateCompanyInPipedrive(name, cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
-            setAllertMessage('Fejl ved opdatering af virksomhedsdata!');
+            setAlertMessage('Fejl ved opdatering af virksomhedsdata!');
         }
 
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });

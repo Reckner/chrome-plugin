@@ -17,7 +17,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
         Api: '',
     });
     const [type, setType] = useState('');
-    const [allertMessage, setAllertMessage] = useState('Error');
+    const [alertMessage, setAlertMessage] = useState('Error');
 
     function handleChange(evt) {
         setState({ Api: evt.target.value });
@@ -28,7 +28,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
 
         const responseStatus = await saveCustomFieldsKeysToLocalStorage(state.Api);
         if(responseStatus === 401 || responseStatus === null){
-            setAllertMessage('Forkert API-nøgle!');
+            setAlertMessage('Forkert API-nøgle!');
             setType('error');
             ($('#alert') as any).modal({
                 backdrop: false,
@@ -53,7 +53,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
 
     return (
         <>
-            <Alert type={type}>{allertMessage}</Alert>
+            <Alert type={type}>{alertMessage}</Alert>
             <Header className="d-flex align-items-center justify-content-between">
                 <h4 className="text-secondary mb-0">Find og overfør Virk-data til PD</h4>
                 <Button

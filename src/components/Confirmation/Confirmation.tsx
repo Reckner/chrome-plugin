@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { IConfirmation } from '../../models/Confirmation';
 import Button from '../Button/Button';
