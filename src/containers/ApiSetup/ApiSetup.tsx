@@ -48,6 +48,7 @@ const ApiSetup: React.FC<ApiSetup> = ({ switchPage, guest }) => {
                 keyboard: false,
             });
             setTimeout(() => {
+                $('#api').addClass('disabled');
                 ($('#alert') as any).modal('hide');
                 window.location.reload();
             }, 1500);
