@@ -10,7 +10,7 @@ export interface ICompanyContainer {
     postal_code_and_city?: string;
     setCompanies?: any;
     start_date?: Date;
-    status?: string;
+    status?: string | null;
     type?: string;
     setAlertType?: any;
     phone?: string;

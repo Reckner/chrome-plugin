@@ -9,8 +9,8 @@ export default interface ICompany{
     industry_code: string;
     industry_description: string;
     сompany_description: string;
-    status: string;
+    status: string | null;
     advertising_protection: string;
-    commune: string;
+    commune: string | null;
     companyExist?: boolean;
 }

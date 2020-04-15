@@ -47,13 +47,13 @@ export interface CompanyMetaData{
         branchetekst: string;
         branchekode: string;
     }
-    sammensatStatus: string;
+    sammensatStatus: string | null;
     nyesteNavn: {
         navn: string;
     }
     nyesteBeliggenhedsadresse: {
         kommune: {
-            kommuneNavn: string;
+            kommuneNavn: string | null;
         }
         husnummerFra: number;
         postnummer: number;

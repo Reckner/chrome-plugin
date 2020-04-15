@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import getCustomFields from './getCustomFields';
 import ICompany from '../models/Company';
 

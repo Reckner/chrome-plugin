@@ -42,7 +42,7 @@ const Confirmation: React.FC<IConfirmation> = ({
                         <div className="modal-dialog m-0 mx-4">
                             <div className="modal-content border shadow">
                                 <div className="d-flex flex-column align-items-center p-3">
-                                    <p className="mx-3">
+                                    <p className="mx-3 text-center">
                                         Fjern <strong>{targetName}</strong>{' '}
                                         virksomhed fra Pipedrive?
                                     </p>

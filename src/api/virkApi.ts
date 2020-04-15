@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { VirkResponse, CompanyData, Phone } from '../models/VirkResponse';
-import { ICompanyContainer } from '../models/CompanyContainer';
 import ICompany from '../models/Company';
 
 const username = 'ehsj.dk_CVR_I_SKYEN';
@@ -85,9 +84,9 @@ export async function searchByCompanyName(
             industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
             industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
             сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
-            status: company.virksomhedMetadata.sammensatStatus,
+            status: capitalizeFirstLetter(company.virksomhedMetadata.sammensatStatus),
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),
-            commune: company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn
+            commune: capitalizeFirstLetter(company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn),
         });
     }
 
@@ -110,6 +109,23 @@ function prepareAdStatus(input: boolean){
     } else {
         return 'Nej';
     }
+}
+
+function capitalizeFirstLetter(text: string | null){
+
+    if(text){
+        text = text.toLowerCase();
+    let textParts = text.split('-');
+
+    if(textParts[1]){
+        return textParts[0][0].toUpperCase() + textParts[0].slice(1) + '-' + textParts[1][0].toUpperCase() + textParts[1].slice(1);
+    } else {
+        return textParts[0][0].toUpperCase() + textParts[0].slice(1);
+    }
+    } else {
+        return null;
+    } 
+    
 }
 
 function createEmployees(input: any){
@@ -224,9 +240,9 @@ export async function searchByCVR(cvr: number, config: virkApiConfig = {}): Prom
             industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
             industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
             сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
-            status: company.virksomhedMetadata.sammensatStatus,
+            status: capitalizeFirstLetter(company.virksomhedMetadata.sammensatStatus),
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),
-            commune: company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn
+            commune: capitalizeFirstLetter(company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn),
         });
     }
 
