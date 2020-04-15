@@ -1,23 +1,16 @@
-export interface ICompanyContainer {
-    address?: string;
-    advertising_protection?: string;
-    companies?: ICompanyContainer[];
-    companyExist?: boolean;
+export default interface ICompany{
     cvr: number;
     name: string;
-    postal_code_and_city?: string;
-    setCompanies?: any;
-    start_date?: Date;
-    status?: string;
-    type?: string;
-    setAlertType?: any;
-    phone?: number;
-    employees?: string;
-    commune?: string;
-    industry_code?: string;
-    industry_description?: string;
-    сompany_description?: string;
-    setAlertMessage?: any;
-    isVisibleConfirmation?: boolean;
-    setVisibilityConfirmation?: any;
+    postal_code_and_city: string;
+    address: string;
+    phone: string;
+    start_date: Date;
+    employees: string;
+    industry_code: string;
+    industry_description: string;
+    сompany_description: string;
+    status: string;
+    advertising_protection: string;
+    commune: string;
+    companyExist?: boolean;
 }

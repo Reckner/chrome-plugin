@@ -1,56 +1,45 @@
 import moment from 'moment';
 
-import getCompanyData from '../api/get-company-data-cvrapi';
 import getCustomFields from './getCustomFields';
+import ICompany from '../models/Company';
 
-const prepareData = async (cvr: number) => {
-    const data = await getCompanyData(cvr);
+const prepareData = async (company: ICompany) => {
     const customFields = await getCustomFields();
     const formattedData: object[] = [];
     const fields = [
-        'vat',
+        'cvr',
         'name',
+        'postal_code_and_city',
         'address',
-        'zipcode',
-        'city',
-        'cityname',
         'phone',
-        'startdate',
+        'start_date',
         'employees',
-        'industrycode',
-        'industrydesc',
-        'companydesc',
+        'industry_code',
+        'industry_description',
+        'сompany_description',
+        'status',
+        'advertising_protection',
+        'commune',
     ];
     const values: object[] = [];
+    
 
     if (customFields !== null) {
         fields.forEach(function(field) {
-            values.push({ field: field, value: data.data[field] });
+            values.push({ field: field, value: company[field] });
         });
     }
 
-    let address = values[2]['value'];
-    if (values[5]['value'] !== null) {
-        address = address + ', ' + values[5]['value'];
-    }
-    address = address + ', ' + values[4]['value'] + ', ' + values[3]['value'];
-    const startdate =
-        values[7]['value'].split(' - ')[1] +
-        '-' +
-        values[7]['value'].split(' - ')[0].split('/')[1] +
-        '-' +
-        values[7]['value'].split(' - ')[0].split('/')[0];
-
-    const date = moment(startdate).format('YYYY-MM-DD');
+    let address: string = `${values[3]['value']}, ${values[2]['value']}`;
 
     enum businessType {
-        //'A/S'
-        'Aktieselskab' = 'A/S',
-        'A/S' = 'A/S',
-
         //'ApS'
         'Anpartsselskab' = 'ApS',
         'ApS' = 'ApS',
+        
+        //'A/S'
+        'Aktieselskab' = 'A/S',
+        'A/S' = 'A/S',
 
         //'IVS'
         'Iværksætterselskab' = 'IVS',
@@ -86,49 +75,80 @@ const prepareData = async (cvr: number) => {
         'Anden udenlandsk virksomhed' = 'Anden udenlandsk virksomhed',
     }
 
-    const businessform = businessType[values[11]['value']];
+    const businessform = businessType[values[9]['value']];
 
     formattedData.push(
         {
+            //cvr
             name: customFields[0].name,
             key: customFields[0].key,
             value: values[0]['value'],
         },
         {
+            //name
             name: customFields[1].name,
             key: customFields[1].key,
             value: values[1]['value'],
         },
         {
+            //address
             name: customFields[2].name,
             key: customFields[2].key,
             value: address,
         },
         {
+            //phone
             name: customFields[3].name,
             key: customFields[3].key,
-            value: values[6]['value'],
+            value: values[4]['value'],
         },
-        { name: customFields[4].name, key: customFields[4].key, value: date },
+        { 
+            //startdate
+            name: customFields[4].name, 
+            key: customFields[4].key, 
+            value: values[5]['value'] 
+        },
         {
+            //employees
             name: customFields[5].name,
             key: customFields[5].key,
+            value: values[6]['value'],
+        },
+        {
+            //industrycode
+            name: customFields[6].name,
+            key: customFields[6].key,
+            value: values[7]['value'],
+        },
+        {
+            //industrydesc
+            name: customFields[7].name,
+            key: customFields[7].key,
             value: values[8]['value'],
         },
         {
-            name: customFields[6].name,
-            key: customFields[6].key,
-            value: values[9]['value'],
-        },
-        {
-            name: customFields[7].name,
-            key: customFields[7].key,
-            value: values[10]['value'],
-        },
-        {
+            //companydesc
             name: customFields[8].name,
             key: customFields[8].key,
             value: businessform,
+        },
+        {
+            //status
+            name: customFields[9].name,
+            key: customFields[9].key,
+            value: values[10]['value'],
+        },
+        {
+            //ad_protection
+            name: customFields[10].name,
+            key: customFields[10].key,
+            value: values[11]['value'],
+        },
+        {
+            //commune
+            name: customFields[11].name,
+            key: customFields[11].key,
+            value: values[12]['value'],
         },
     );
 

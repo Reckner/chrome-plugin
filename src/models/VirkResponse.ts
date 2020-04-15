@@ -34,7 +34,7 @@ export interface CompanyData{
 export interface Phone{
     sidstOpdateret: Date;
     hemmelig: boolean;
-    kontaktoplysning: number;
+    kontaktoplysning: string;
     periode: {
         gyldigFra: Date;
         gyldigTil: Date | null;

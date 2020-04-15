@@ -25,6 +25,9 @@ const getKeysFromPipedrive = async (token: string) : Promise<respObject> => {
                 'Branchekode',
                 'Branchetekst',
                 'Selskabsform',
+                'Status',
+                'Reklamebeskyttet',
+                'Kommune'
             ];
             const keys: object[] = [];
 

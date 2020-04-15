@@ -1,7 +1,8 @@
 export interface IConfirmation {
-    target: string | null;
+    targetName: string | null;
+    targetCVR: number | null;
     isVisible: boolean;
     setVisibility: any;
     deleteCompany: any;
-    setConfirmationTarget: any;
+    setConfirmationTargetName: any;
 }

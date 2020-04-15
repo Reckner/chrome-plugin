@@ -15,12 +15,11 @@ import ifCompanyExistsInPipedrive from '../../helpers/ifCompanyExistsInPipedrive
 
 import { SettingsIcon, AlertIcon } from '../../assets/images';
 
-import { ICompanyContainer } from '../../models/Company';
-import getCompanyData from '../../api/get-company-data-cvrapi';
 import * as virkApi from '../../api/virkApi';
+import ICompany from '../../models/Company';
 
 export default function Companies({ switchPage }) {
-    const [companies, setCompanies] = useState<ICompanyContainer[]>([]);
+    const [companies, setCompanies] = useState<ICompany[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [search, setSearch] = useState(null);
     const [type, setType] = useState('');
@@ -49,28 +48,28 @@ export default function Companies({ switchPage }) {
         setIsLoading(true);
 
         if (input?.length > 2) {
-            let foundCompanies: ICompanyContainer[];
+            let foundCompanies: ICompany[];
             if ($.isNumeric(input)) {
-                const companyData = await getCompanyData(input);
-                foundCompanies = [
-                    {
-                        cvr: companyData.data['vat'],
-                        name: companyData.data['name'],
-                        address: companyData.data.cityname
-                            ? companyData.data['address'] +
-                              ', ' +
-                              companyData.data.cityname
-                            : companyData.data['address'],
-                        postal_code_and_city:
-                            companyData.data['city'] +
-                            ', ' +
-                            companyData.data['zipcode'],
-                    },
-                ];
+                foundCompanies = await virkApi
+                    .searchByCVR(input)
+                    .catch((): ICompany[] => {
+                        setAlertMessage('Request to Virk failed!');
+                        setType('error');
+                        ($('#alert') as any).modal({
+                            backdrop: false,
+                            keyboard: false,
+                        });
+                        return [];
+                    });
+
+                setTimeout(() => {
+                    ($('#alert') as any).modal('hide');
+                }, 1500);
+                
             } else {
                 foundCompanies = await virkApi
                     .searchByCompanyName(input)
-                    .catch((): ICompanyContainer[] => {
+                    .catch((): ICompany[] => {
                         setAlertMessage('Request to Virk failed!');
                         setType('error');
                         ($('#alert') as any).modal({
@@ -95,10 +94,10 @@ export default function Companies({ switchPage }) {
         }
     };
 
-    const checkedCompanies = (companies: ICompanyContainer[]) => {
+    const checkedCompanies = (companies: ICompany[]) => {
         const formatted = Promise.all(
             companies.map(async (company) => {
-                if (await ifCompanyExistsInPipedrive(company.name || '')) {
+                if (await ifCompanyExistsInPipedrive(company.name || '', company.cvr)) {
                     return {
                         ...company,
                         companyExist: true,

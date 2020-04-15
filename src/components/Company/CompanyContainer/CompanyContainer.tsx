@@ -10,7 +10,7 @@ import { AddIcon, RefreshIcon, RemoveIcon } from '../../../assets/images';
 import Button from '../../Button/Button';
 
 import Confirmation from '../../Confirmation/Confirmation';
-import { ICompanyContainer } from '../../../models/Company';
+import { ICompanyContainer } from '../../../models/CompanyContainer';
 
 const svgStyle = {
     height: '25px',
@@ -36,7 +36,10 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
     setVisibilityConfirmation,
 }) => {
     const [buttonDisabled, setButtonDisable] = useState(false);
-    const [confirmationTarget, setConfirmationTarget] = useState<string | null>(
+    const [confirmationTargetName, setConfirmationTargetName] = useState<string | null>(
+        null,
+    );
+    const [confirmationTargetCVR, setConfirmationTargetCVR] = useState<number | null>(
         null,
     );
 
@@ -75,7 +78,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         let newCompanies = [...companies];
         setCompanies(
             newCompanies.map((c) => {
-                if (c.name === name) {
+                if (c.cvr === cvr) {
                     return {
                         ...c,
                         companyExist: false,
@@ -86,7 +89,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         );
     };
 
-    const addButton = async (cvr) => {
+    const addButton = async (cvr: number) => {
         companies?.filter((company) => {
             return company.cvr === cvr;
         });
@@ -94,7 +97,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         setButtonDisable(true);
         setAlertType('add');
         setAlertMessage('Virksomheden er tilføjet til Pipedrive!');
-        const result = await createCompanyInPipedrive(cvr);
+        const result = await createCompanyInPipedrive(companies, cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
             setAlertMessage('Fejl ved tilføjelse af virksomheden!');
@@ -108,16 +111,18 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         }, 1500);
     };
 
-    const deleteCompany = async (name: string) => {
+    const deleteCompany = async (cvr: number) => {
         setButtonDisable(true);
         setAlertType('remove');
         setAlertMessage('Virksomheden er fjernet fra Pipedrive!');
-        const result = await deleteCompanyFromPipedrive(name);
+        const result = await deleteCompanyFromPipedrive(companies, cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
             setAlertMessage('Fejl ved sletning af virksomheden!');
         }
         updateCompaniesAfterDeleting();
+        setConfirmationTargetCVR(null);
+        setConfirmationTargetName(null);
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
         setTimeout(() => {
             ($('#alert') as any).modal('hide');
@@ -125,11 +130,11 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
         }, 1500);
     };
 
-    const updateButton = async (name: string, cvr: number) => {
+    const updateButton = async (cvr: number) => {
         setButtonDisable(true);
         setAlertType('update');
         setAlertMessage('Virksomhedsdata er opdateret!');
-        const result = await updateCompanyInPipedrive(name, cvr);
+        const result = await updateCompanyInPipedrive(companies, cvr);
         if (result?.data?.success !== true) {
             setAlertType('error');
             setAlertMessage('Fejl ved opdatering af virksomhedsdata!');
@@ -144,12 +149,13 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
 
     return (
         <>
-            {isVisibleConfirmation && confirmationTarget ? (
+            {isVisibleConfirmation && confirmationTargetName ? (
                 <Confirmation
-                    target={confirmationTarget}
+                    targetName={confirmationTargetName}
+                    targetCVR={confirmationTargetCVR}
                     isVisible={isVisibleConfirmation}
                     setVisibility={setVisibilityConfirmation}
-                    setConfirmationTarget={setConfirmationTarget}
+                    setConfirmationTargetName={setConfirmationTargetName}
                     deleteCompany={deleteCompany}
                 />
             ) : (
@@ -185,7 +191,8 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                             appearance="danger"
                             className="p-0 mx-1 w-100"
                             onClick={() => {
-                                setConfirmationTarget(name);
+                                setConfirmationTargetName(name);
+                                setConfirmationTargetCVR(cvr);
                                 setVisibilityConfirmation(true);
                             }}
                             title="Slet virksomhed"
@@ -197,7 +204,7 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
                             style={buttonStyle}
                             appearance="info"
                             className="p-0 w-100"
-                            onClick={() => updateButton(name, cvr)}
+                            onClick={() => updateButton(cvr)}
                             title="Opdater virksomhed"
                             disabled={buttonDisabled}
                         >

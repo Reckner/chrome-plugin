@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { VirkResponse, CompanyData, Phone } from '../models/VirkResponse';
-import { ICompanyContainer } from '../models/Company';
+import { ICompanyContainer } from '../models/CompanyContainer';
+import ICompany from '../models/Company';
 
 const username = 'ehsj.dk_CVR_I_SKYEN';
 const password = 'c5003ca2-efaf-4312-b914-17cdeb4ea6ea';
@@ -16,7 +17,7 @@ const proxy = 'http://degit.org:8099/';
 export async function searchByCompanyName(
     query: string,
     config: virkApiConfig = {},
-): Promise<ICompanyContainer[]> {
+): Promise<ICompany[]> {
     const response: VirkResponse = await axios
         .post(
             config.url ||
@@ -68,7 +69,7 @@ export async function searchByCompanyName(
         companies.push(doc._source.Vrvirksomhed);
     }
 
-    const companiesFormated: ICompanyContainer[] = [];
+    const companiesFormated: ICompany[] = [];
     for (const company of companies) {
         companiesFormated.push({
             cvr: company.cvrNummer,
@@ -83,7 +84,7 @@ export async function searchByCompanyName(
             employees: createEmployees(company.virksomhedMetadata?.nyesteAarsbeskaeftigelse?.intervalKodeAntalAnsatte),
             industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
             industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
-            сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.kortBeskrivelse,
+            сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
             status: company.virksomhedMetadata.sammensatStatus,
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),
             commune: company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn
@@ -94,7 +95,13 @@ export async function searchByCompanyName(
 }
 
 function preparePhone(phones: Phone[]){
-    return 55555;
+    let number = 'Ingen data';
+    for (const obj of phones) {
+        if (!obj.periode.gyldigTil){
+            number = obj.kontaktoplysning;
+        }
+    }
+    return number;
 }
 
 function prepareAdStatus(input: boolean){
@@ -125,6 +132,7 @@ function createAddress(company: CompanyData) {
         company.virksomhedMetadata.nyesteBeliggenhedsadresse.vejnavn;
     const houseNumber =
         company.virksomhedMetadata.nyesteBeliggenhedsadresse.husnummerFra;
+    const cityname = company.virksomhedMetadata.nyesteBeliggenhedsadresse.bynavn;
     const floor = company.virksomhedMetadata.nyesteBeliggenhedsadresse.etage;
     const sideDoor =
         company.virksomhedMetadata.nyesteBeliggenhedsadresse.sidedoer;
@@ -143,10 +151,15 @@ function createAddress(company: CompanyData) {
         address += ` ${sideDoor}.`;
     }
 
+    if(cityname){
+        address += `, ${cityname}`
+    }
+
+
     return address;
 }
 
-export async function searchByCVR(cvr: number, config: virkApiConfig = {}) {
+export async function searchByCVR(cvr: number, config: virkApiConfig = {}): Promise<ICompany[]> {
     const response = await axios
         .post(
             config.url ||
@@ -186,15 +199,36 @@ export async function searchByCVR(cvr: number, config: virkApiConfig = {}) {
                 },
             },
         )
-        .then((res) => res.data.hits.hits)
+        .then((res) => res.data)
         .catch((err) => {
             throw new Error(err);
         });
-
-    const companies: object[] = [];
-    for (const doc of response) {
+    const companies: CompanyData[] = [];
+    for (const doc of response.hits.hits) {
         companies.push(doc._source.Vrvirksomhed);
     }
 
-    return companies[0];
+    const companiesFormated: ICompany[] = [];
+    for (const company of companies) {
+        companiesFormated.push({
+            cvr: company.cvrNummer,
+            name: company.virksomhedMetadata.nyesteNavn.navn.replace(
+                /\s\s+/g,
+                ' ',
+            ),
+            postal_code_and_city: `${company.virksomhedMetadata.nyesteBeliggenhedsadresse.postdistrikt}, ${company.virksomhedMetadata.nyesteBeliggenhedsadresse.postnummer}`,
+            address: createAddress(company),
+            phone: preparePhone(company.telefonNummer),
+            start_date: company.virksomhedMetadata.stiftelsesDato,
+            employees: createEmployees(company.virksomhedMetadata?.nyesteAarsbeskaeftigelse?.intervalKodeAntalAnsatte),
+            industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
+            industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
+            сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
+            status: company.virksomhedMetadata.sammensatStatus,
+            advertising_protection: prepareAdStatus(company.reklamebeskyttet),
+            commune: company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn
+        });
+    }
+
+    return companiesFormated;
 }

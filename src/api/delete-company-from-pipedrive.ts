@@ -3,14 +3,22 @@ import _ from 'lodash';
 
 import { getApiToken } from '../helpers/getApiToken';
 import getCompanyByName from './get-company-by-name-pipedrive';
+import ICompany from '../models/Company';
 
-const deleteCompanyFromPipedrive = async (name: string): Promise<any> => {
-    const companies = await getCompanyByName(name);
+const deleteCompanyFromPipedrive = async (companies: ICompany[], cvr: number): Promise<any> => {
+    const newCompany = companies.filter(c => {
+        if(c.cvr === cvr){
+            return c;
+        }
+    })[0]
+
+
+    const companiesToDelete = await getCompanyByName(newCompany.name);
 
     return new Promise(async (resolve, reject) => {
-        if (_.isArray(companies)) {
-            for (const company of companies) {
-                if (company.item.name.trim() === name.trim()) {
+        if (_.isArray(companiesToDelete)) {
+            for (const company of companiesToDelete) {
+                if (company.item.name.trim() === newCompany.name.trim() && parseInt(company.item.custom_fields[0], 10) === newCompany.cvr) {
                     resolve(
                         await axios
                             .delete(

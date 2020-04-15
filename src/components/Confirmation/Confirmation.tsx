@@ -7,8 +7,9 @@ const Confirmation: React.FC<IConfirmation> = ({
     deleteCompany,
     isVisible,
     setVisibility,
-    target,
-    setConfirmationTarget,
+    targetName,
+    targetCVR,
+    setConfirmationTargetName,
 }) => {
     const styles = {
         display: 'block',
@@ -18,15 +19,15 @@ const Confirmation: React.FC<IConfirmation> = ({
     } as React.CSSProperties;
 
     const handleYes = () => {
-        if (target) {
-            deleteCompany(target);
+        if (targetCVR) {
+            deleteCompany(targetCVR);
             setVisibility(false);
         }
     };
 
     const handleNo = () => {
         setVisibility(false);
-        setConfirmationTarget(null);
+        setConfirmationTargetName(null);
     };
 
     return (
@@ -42,7 +43,7 @@ const Confirmation: React.FC<IConfirmation> = ({
                             <div className="modal-content border shadow">
                                 <div className="d-flex flex-column align-items-center p-3">
                                     <p className="mx-3">
-                                        Fjern <strong>{target}</strong>{' '}
+                                        Fjern <strong>{targetName}</strong>{' '}
                                         virksomhed fra Pipedrive?
                                     </p>
                                     <div className="d-flex w-100">
