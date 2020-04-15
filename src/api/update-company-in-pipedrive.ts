@@ -14,6 +14,7 @@ const updateCompanyInPipedrive = async (
         if(c.cvr === cvr){
             return c;
         }
+        return null;
     })[0]
     const data = await prepareData(newCompany);
 

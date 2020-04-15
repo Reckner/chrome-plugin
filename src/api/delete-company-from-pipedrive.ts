@@ -10,6 +10,7 @@ const deleteCompanyFromPipedrive = async (companies: ICompany[], cvr: number): P
         if(c.cvr === cvr){
             return c;
         }
+        return null;
     })[0]
 
 

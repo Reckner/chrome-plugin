@@ -9,6 +9,7 @@ const createCompanyInPipedrive = async (companies: ICompany[], cvr: number) => {
         if(c.cvr === cvr){
             return c;
         }
+        return null;
     })[0]
 
     const data = await prepareData(company);
