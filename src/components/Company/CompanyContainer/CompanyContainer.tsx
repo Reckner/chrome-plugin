@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import $ from 'jquery';
-import classnames from 'classnames';
 
 import createCompanyInPipedrive from '../../../api/create-company-in-pipedrive';
 import deleteCompanyFromPipedrive from '../../../api/delete-company-from-pipedrive';
@@ -23,28 +22,39 @@ const buttonStyle = {
 } as React.CSSProperties;
 
 const CompanyContainer: React.FC<ICompanyContainer> = ({
-    name,
     address,
-    postal_code_and_city,
-    cvr,
-    companyExist,
     companies,
-    setCompanies,
-    setAlertType,
-    setAlertMessage,
+    companyExist,
+    cvr,
     isVisibleConfirmation,
+    name,
+    postal_code_and_city,
+    setAlertMessage,
+    setAlertType,
+    setCompanies,
     setVisibilityConfirmation,
+    status,
 }) => {
     const [buttonDisabled, setButtonDisable] = useState(false);
-    const [confirmationTargetName, setConfirmationTargetName] = useState<string | null>(
-        null,
-    );
-    const [confirmationTargetCVR, setConfirmationTargetCVR] = useState<number | null>(
-        null,
-    );
+    const [confirmationTargetName, setConfirmationTargetName] = useState<
+        string | null
+    >(null);
+    const [confirmationTargetCVR, setConfirmationTargetCVR] = useState<
+        number | null
+    >(null);
 
     useEffect(() => {
         $('.companyName').hover(
+            function () {
+                if (this.offsetWidth < this.scrollWidth) {
+                    $(this).attr('title', $(this).text());
+                }
+            },
+            function () {
+                $(this).removeAttr('title');
+            },
+        );
+        $('.companyStatus').hover(
             function () {
                 if (this.offsetWidth < this.scrollWidth) {
                     $(this).attr('title', $(this).text());
@@ -161,15 +171,21 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             ) : (
                 <></>
             )}
-            <div className={classnames('d-flex border rounded my-1 shadow-sm')}>
+            <div className="d-flex border rounded my-1 shadow-sm">
                 <div className="d-flex flex-column flex-fill pl-3 py-3 w-75">
                     <h3 className="mb-0 text-truncate w-75 companyName">
                         {name}
                     </h3>
+
                     <p className="mb-0">
                         {address}, {postal_code_and_city}
                     </p>
-                    <p className="mb-0">CVR {cvr}</p>
+                    <div className="d-flex align-items-center">
+                        <p className="mb-0 mr-2">CVR&nbsp;{cvr}</p>
+                        <p className="px-3 mb-0 my-1 d-inline rounded border bg-light text-truncate text-capitalize companyStatus">
+                            {status}
+                        </p>
+                    </div>
                 </div>
                 {!companyExist ? (
                     <div className="d-flex flex-fill justify-content-end">

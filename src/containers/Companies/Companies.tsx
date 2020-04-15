@@ -65,7 +65,6 @@ export default function Companies({ switchPage }) {
                 setTimeout(() => {
                     ($('#alert') as any).modal('hide');
                 }, 1500);
-                
             } else {
                 foundCompanies = await virkApi
                     .searchByCompanyName(input)
@@ -97,7 +96,12 @@ export default function Companies({ switchPage }) {
     const checkedCompanies = (companies: ICompany[]) => {
         const formatted = Promise.all(
             companies.map(async (company) => {
-                if (await ifCompanyExistsInPipedrive(company.name || '', company.cvr)) {
+                if (
+                    await ifCompanyExistsInPipedrive(
+                        company.name || '',
+                        company.cvr,
+                    )
+                ) {
                     return {
                         ...company,
                         companyExist: true,
@@ -150,24 +154,25 @@ export default function Companies({ switchPage }) {
                         {companies.map((company) => {
                             return (
                                 <Company.CompanyContainer
-                                    key={company.cvr}
-                                    name={company.name}
                                     address={company.address}
-                                    postal_code_and_city={
-                                        company.postal_code_and_city
-                                    }
-                                    cvr={company.cvr}
-                                    companyExist={company.companyExist}
                                     companies={companies}
-                                    setCompanies={setCompanies}
-                                    setAlertType={setType}
-                                    setAlertMessage={setAlertMessage}
+                                    companyExist={company.companyExist}
+                                    cvr={company.cvr}
                                     isVisibleConfirmation={
                                         isVisibleConfirmation
                                     }
+                                    key={company.cvr}
+                                    name={company.name}
+                                    postal_code_and_city={
+                                        company.postal_code_and_city
+                                    }
+                                    setAlertMessage={setAlertMessage}
+                                    setAlertType={setType}
+                                    setCompanies={setCompanies}
                                     setVisibilityConfirmation={
                                         setVisibilityConfirmation
                                     }
+                                    status={company.status}
                                 />
                             );
                         })}
