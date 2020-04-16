@@ -70,6 +70,11 @@ export async function searchByCompanyName(
 
     const companiesFormated: ICompany[] = [];
     for (const company of companies) {
+        console.log(company);
+        console.log(company.virksomhedMetadata.nyesteHovedbranche.branchekode);
+        console.log(company.virksomhedMetadata.nyesteHovedbranche.branchetekst);
+
+
         companiesFormated.push({
             cvr: company.cvrNummer,
             name: company.virksomhedMetadata.nyesteNavn.navn.replace(
@@ -81,13 +86,14 @@ export async function searchByCompanyName(
             phone: preparePhone(company.telefonNummer),
             start_date: company.virksomhedMetadata.stiftelsesDato,
             employees: createEmployees(company.virksomhedMetadata?.nyesteAarsbeskaeftigelse?.intervalKodeAntalAnsatte),
-            industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
-            industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
+            industry_code: company.virksomhedMetadata?.nyesteHovedbranche?.branchekode ? company.virksomhedMetadata.nyesteHovedbranche.branchekode : 'Ingen data',
+            industry_description: company.virksomhedMetadata?.nyesteHovedbranche?.branchetekst ? company.virksomhedMetadata.nyesteHovedbranche.branchetekst : 'Ingen data',
             сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
             status: capitalizeFirstLetter(company.virksomhedMetadata.sammensatStatus),
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),
             commune: capitalizeFirstLetter(company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn),
         });
+        console.log(companiesFormated);
     }
 
     return companiesFormated;
@@ -95,9 +101,12 @@ export async function searchByCompanyName(
 
 function preparePhone(phones: Phone[]){
     let number = 'Ingen data';
-    for (const obj of phones) {
-        if (!obj.periode.gyldigTil){
-            number = obj.kontaktoplysning;
+
+    if(phones.length !== 0){
+        for (const obj of phones) {
+            if (!obj.periode.gyldigTil){
+                number = obj.kontaktoplysning;
+            }
         }
     }
     return number;
@@ -112,16 +121,15 @@ function prepareAdStatus(input: boolean){
 }
 
 function capitalizeFirstLetter(text: string | null){
-
     if(text){
-        text = text.toLowerCase();
-    let textParts = text.split('-');
+            text = text.toLowerCase();
+        let textParts = text.split('-');
 
-    if(textParts[1]){
-        return textParts[0][0].toUpperCase() + textParts[0].slice(1) + '-' + textParts[1][0].toUpperCase() + textParts[1].slice(1);
-    } else {
-        return textParts[0][0].toUpperCase() + textParts[0].slice(1);
-    }
+        if(textParts[1]){
+            return textParts[0][0].toUpperCase() + textParts[0].slice(1) + '-' + textParts[1][0].toUpperCase() + textParts[1].slice(1);
+        } else {
+            return textParts[0][0].toUpperCase() + textParts[0].slice(1);
+        }
     } else {
         return null;
     } 
@@ -171,7 +179,7 @@ function createAddress(company: CompanyData) {
         address += `, ${cityname}`
     }
 
-
+    console.log(address);
     return address;
 }
 
