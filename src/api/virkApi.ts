@@ -70,11 +70,6 @@ export async function searchByCompanyName(
 
     const companiesFormated: ICompany[] = [];
     for (const company of companies) {
-        console.log(company);
-        console.log(company.virksomhedMetadata.nyesteHovedbranche.branchekode);
-        console.log(company.virksomhedMetadata.nyesteHovedbranche.branchetekst);
-
-
         companiesFormated.push({
             cvr: company.cvrNummer,
             name: company.virksomhedMetadata.nyesteNavn.navn.replace(
@@ -93,7 +88,6 @@ export async function searchByCompanyName(
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),
             commune: capitalizeFirstLetter(company.virksomhedMetadata.nyesteBeliggenhedsadresse.kommune.kommuneNavn),
         });
-        console.log(companiesFormated);
     }
 
     return companiesFormated;
@@ -179,7 +173,6 @@ function createAddress(company: CompanyData) {
         address += `, ${cityname}`
     }
 
-    console.log(address);
     return address;
 }
 
