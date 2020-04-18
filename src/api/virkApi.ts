@@ -81,8 +81,8 @@ export async function searchByCompanyName(
             phone: preparePhone(company.telefonNummer),
             start_date: company.virksomhedMetadata.stiftelsesDato,
             employees: createEmployees(company.virksomhedMetadata?.nyesteAarsbeskaeftigelse?.intervalKodeAntalAnsatte),
-            industry_code: company.virksomhedMetadata?.nyesteHovedbranche?.branchekode ? company.virksomhedMetadata.nyesteHovedbranche.branchekode : 'Ingen data',
-            industry_description: company.virksomhedMetadata?.nyesteHovedbranche?.branchetekst ? company.virksomhedMetadata.nyesteHovedbranche.branchetekst : 'Ingen data',
+            industry_code: company.virksomhedMetadata?.nyesteHovedbranche?.branchekode ? company.virksomhedMetadata.nyesteHovedbranche.branchekode : null,
+            industry_description: company.virksomhedMetadata?.nyesteHovedbranche?.branchetekst ? company.virksomhedMetadata.nyesteHovedbranche.branchetekst : null,
             сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
             status: capitalizeFirstLetter(company.virksomhedMetadata.sammensatStatus),
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),
@@ -94,7 +94,7 @@ export async function searchByCompanyName(
 }
 
 function preparePhone(phones: Phone[]){
-    let number = 'Ingen data';
+    let number: string | null = null;
 
     if(phones.length !== 0){
         for (const obj of phones) {
@@ -141,7 +141,7 @@ function createEmployees(input: any){
           return `${start}-${end}`;
         }
     } else {
-        return 'Ingen data';
+        return null;
     }
 }
 
@@ -238,8 +238,8 @@ export async function searchByCVR(cvr: number, config: virkApiConfig = {}): Prom
             phone: preparePhone(company.telefonNummer),
             start_date: company.virksomhedMetadata.stiftelsesDato,
             employees: createEmployees(company.virksomhedMetadata?.nyesteAarsbeskaeftigelse?.intervalKodeAntalAnsatte),
-            industry_code: company.virksomhedMetadata.nyesteHovedbranche.branchekode,
-            industry_description: company.virksomhedMetadata.nyesteHovedbranche.branchetekst,
+            industry_code: company.virksomhedMetadata?.nyesteHovedbranche?.branchekode ? company.virksomhedMetadata.nyesteHovedbranche.branchekode : null,
+            industry_description: company.virksomhedMetadata?.nyesteHovedbranche?.branchetekst ? company.virksomhedMetadata.nyesteHovedbranche.branchetekst : null,
             сompany_description: company.virksomhedMetadata.nyesteVirksomhedsform.langBeskrivelse,
             status: capitalizeFirstLetter(company.virksomhedMetadata.sammensatStatus),
             advertising_protection: prepareAdStatus(company.reklamebeskyttet),

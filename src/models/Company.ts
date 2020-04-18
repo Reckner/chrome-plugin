@@ -3,11 +3,11 @@ export default interface ICompany{
     name: string;
     postal_code_and_city: string;
     address: string;
-    phone: string;
+    phone: string | null;
     start_date: Date;
-    employees: string;
-    industry_code: string;
-    industry_description: string;
+    employees: string | null;
+    industry_code: string | null;
+    industry_description: string | null;
     сompany_description: string;
     status: string | null;
     advertising_protection: string;
