@@ -8,7 +8,15 @@ const ifCompanyExistsInPipedrive = async (name: string, cvr: number): Promise<bo
 
     if (!_.isEmpty(companies)) {
         companies.forEach((company) => {
-            if (parseInt(company.item.custom_fields[0], 10) === cvr) {
+
+            const foundCVR = company.item.custom_fields.find((element) => {
+                if(element.length === 8 && !isNaN(element)){
+                  return element;
+                } else {
+                    return null;
+                }
+              });
+            if (parseInt(foundCVR, 10) === cvr) {
                 result = true;
             }
         });

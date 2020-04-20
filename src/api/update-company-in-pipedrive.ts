@@ -18,6 +18,8 @@ const updateCompanyInPipedrive = async (
     })[0]
     const data = await prepareData(newCompany);
 
+    //delete name?
+
     interface IValues {
         [key: string]: any;
     }
@@ -32,7 +34,15 @@ const updateCompanyInPipedrive = async (
     return new Promise(async (resolve, reject) => {
         if (_.isArray(oldCompanies)) {
             for (const company of oldCompanies) {
-                if (parseInt(company.item.custom_fields[0], 10) === newCompany.cvr) {
+                const foundCVR = company.item.custom_fields.find((element) => {
+                    if(element.length === 8 && !isNaN(element)){
+                        return element;
+                    } else {
+                        return null;
+                    }
+                  })
+                if (parseInt(foundCVR, 10) === newCompany.cvr) {
+                    console.log(values);
                     resolve(
                         await axios
                             .put(
