@@ -43,14 +43,7 @@ export async function searchByCompanyName(
                     'Vrvirksomhed.virksomhedMetadata.nyesteAarsbeskaeftigelse.intervalKodeAntalAnsatte',
                     'Vrvirksomhed.virksomhedMetadata.sammensatStatus',
                 ],
-                query: {
-                    match: {
-                        'Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn': {
-                            query,
-                            operator: 'and',
-                        },
-                    },
-                },
+                query: determineQuery(query)
             },
             {
                 headers: {
@@ -91,6 +84,35 @@ export async function searchByCompanyName(
     }
 
     return companiesFormated;
+}
+
+function determineQuery(input: string):object{
+    const words = input.split(/[\s,]+/);
+    const amount = words.length;
+
+    let queryType;
+    if(amount === 1){
+        queryType = 'match';
+    } else {
+        queryType = 'match_phrase_prefix';
+    }
+
+    const operator = queryType === 'match' ? 'and' : null;
+
+    let query = {
+        [queryType]: {
+            'Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn': {
+                query: input,
+            },
+        },
+    };
+
+    if(operator){
+        Object.assign(query[queryType]['Vrvirksomhed.virksomhedMetadata.nyesteNavn.navn'], {operator: 'and'});
+    }
+
+    return query;
+
 }
 
 function preparePhone(phones: Phone[]){
@@ -135,8 +157,8 @@ function createEmployees(input: any){
         const start = input.split('_')[1];
         const end = input.split('_')[2];
     
-        if(start === '0' && end === '0'){
-            return '0';
+        if(start === end){
+            return start;
         } else {
           return `${start}-${end}`;
         }

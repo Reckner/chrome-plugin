@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import { getApiToken } from '../helpers/getApiToken';
-import getCompanyByName from './get-company-by-name-pipedrive';
+import getCompanyByCVR from './get-company-by-cvr-pipedrive';
 import ICompany from '../models/Company';
 
 const deleteCompanyFromPipedrive = async (companies: ICompany[], cvr: number): Promise<any> => {
@@ -14,12 +14,12 @@ const deleteCompanyFromPipedrive = async (companies: ICompany[], cvr: number): P
     })[0]
 
 
-    const companiesToDelete = await getCompanyByName(newCompany.name);
+    const companiesToDelete = await getCompanyByCVR(newCompany.cvr);
 
     return new Promise(async (resolve, reject) => {
         if (_.isArray(companiesToDelete)) {
             for (const company of companiesToDelete) {
-                if (company.item.name.trim() === newCompany.name.trim() && parseInt(company.item.custom_fields[0], 10) === newCompany.cvr) {
+                if (parseInt(company.item.custom_fields[0], 10) === newCompany.cvr) {
                     resolve(
                         await axios
                             .delete(

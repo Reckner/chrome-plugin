@@ -43,7 +43,8 @@ export default function Companies({ switchPage }) {
     };
 
     const handleRequest = async (e) => {
-        const { value: input } = e.target;
+        let { value: input } = e.target;
+        input = input.trim();
 
         setIsLoading(true);
 

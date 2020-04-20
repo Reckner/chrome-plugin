@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import { getApiToken } from '../helpers/getApiToken';
-import getCompanyByName from './get-company-by-name-pipedrive';
+import getCompanyByCVR from './get-company-by-cvr-pipedrive';
 import ICompany from '../models/Company';
 import prepareData from '../helpers/prepareCompanyData';
 
@@ -27,12 +27,12 @@ const updateCompanyInPipedrive = async (
         values[data[index]['key']] = data[index]['value'];
     });
 
-    const oldCompanies = await getCompanyByName(newCompany.name);
+    const oldCompanies = await getCompanyByCVR(newCompany.cvr);
 
     return new Promise(async (resolve, reject) => {
         if (_.isArray(oldCompanies)) {
             for (const company of oldCompanies) {
-                if (company.item.name.trim() === newCompany.name.trim() && parseInt(company.item.custom_fields[0], 10) === newCompany.cvr) {
+                if (parseInt(company.item.custom_fields[0], 10) === newCompany.cvr) {
                     resolve(
                         await axios
                             .put(
