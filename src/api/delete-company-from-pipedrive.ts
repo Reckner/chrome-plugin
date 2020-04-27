@@ -5,14 +5,16 @@ import { getApiToken } from '../helpers/getApiToken';
 import getCompanyByCVR from './get-company-by-cvr-pipedrive';
 import ICompany from '../models/Company';
 
-const deleteCompanyFromPipedrive = async (companies: ICompany[], cvr: number): Promise<any> => {
-    const newCompany = companies.filter(c => {
-        if(c.cvr === cvr){
+const deleteCompanyFromPipedrive = async (
+    companies: ICompany[],
+    cvr: number,
+): Promise<any> => {
+    const newCompany = companies.filter((c) => {
+        if (c.cvr === cvr) {
             return c;
         }
         return null;
-    })[0]
-
+    })[0];
 
     const companiesToDelete = await getCompanyByCVR(newCompany.cvr);
 
@@ -20,12 +22,12 @@ const deleteCompanyFromPipedrive = async (companies: ICompany[], cvr: number): P
         if (_.isArray(companiesToDelete)) {
             for (const company of companiesToDelete) {
                 const foundCVR = company.item.custom_fields.find((element) => {
-                    if(element.length === 8 && !isNaN(element)){
+                    if (element.length === 8 && !isNaN(element)) {
                         return element;
                     } else {
                         return null;
                     }
-                  })
+                });
 
                 if (parseInt(foundCVR, 10) === newCompany.cvr) {
                     resolve(

@@ -112,13 +112,18 @@ const CompanyContainer: React.FC<ICompanyContainer> = ({
             setAlertType('error');
             setAlertMessage('Fejl ved tilføjelse af virksomheden!');
         }
+
         updateCompaniesAfterAdding();
 
         ($('#alert') as any).modal({ backdrop: false, keyboard: false });
-        setTimeout(() => {
+        setTimeout(async () => {
             ($('#alert') as any).modal('hide');
             setButtonDisable(false);
         }, 1500);
+
+        setTimeout(async () => {
+            await updateCompanyInPipedrive(companies, cvr);
+        }, 3000);
     };
 
     const deleteCompany = async (cvr: number) => {

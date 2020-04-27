@@ -4,19 +4,20 @@ import { getApiToken } from '../helpers/getApiToken';
 import prepareData from '../helpers/prepareCompanyData';
 import ICompany from '../models/Company';
 
+interface IValues {
+    [key: string]: any;
+}
+
 const createCompanyInPipedrive = async (companies: ICompany[], cvr: number) => {
-    const company = companies.filter(c => {
-        if(c.cvr === cvr){
+    const company = companies.filter((c) => {
+        if (c.cvr === cvr) {
             return c;
         }
         return null;
-    })[0]
+    })[0];
 
     const data = await prepareData(company);
 
-    interface IValues {
-        [key: string]: any;
-    }
     const values: IValues = {};
 
     data.forEach((_, index) => {
