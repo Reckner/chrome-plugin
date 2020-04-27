@@ -20,10 +20,9 @@ const prepareData = async (company: ICompany) => {
         'commune',
     ];
     const values: object[] = [];
-    
 
     if (customFields !== null) {
-        fields.forEach(function(field) {
+        fields.forEach(function (field) {
             values.push({ field: field, value: company[field] });
         });
     }
@@ -34,7 +33,7 @@ const prepareData = async (company: ICompany) => {
         //'ApS'
         'Anpartsselskab' = 'ApS',
         'ApS' = 'ApS',
-        
+
         //'A/S'
         'Aktieselskab' = 'A/S',
         'A/S' = 'A/S',
@@ -75,6 +74,18 @@ const prepareData = async (company: ICompany) => {
 
     const businessform = businessType[values[9]['value']];
 
+    enum companyStatus {
+        'Normal' = 'Normal',
+        'Aktiv' = 'Aktiv',
+        'Inaktiv' = 'Inaktiv',
+        'Tvangsopløst' = 'Tvangsopløst/ophørt',
+        'Ophørt' = 'Tvangsopløst/ophørt',
+        'Under konkurs' = 'Under konkurs/tvangsløsning',
+        'Tvangsløsning' = 'Under konkurs/tvangsløsning',
+    }
+
+    const status = companyStatus[values[10]['value']];
+
     formattedData.push(
         {
             //cvr
@@ -100,11 +111,11 @@ const prepareData = async (company: ICompany) => {
             key: customFields[3].key,
             value: values[4]['value'],
         },
-        { 
+        {
             //startdate
-            name: customFields[4].name, 
-            key: customFields[4].key, 
-            value: values[5]['value'] 
+            name: customFields[4].name,
+            key: customFields[4].key,
+            value: values[5]['value'],
         },
         {
             //employees
@@ -134,7 +145,7 @@ const prepareData = async (company: ICompany) => {
             //status
             name: customFields[9].name,
             key: customFields[9].key,
-            value: values[10]['value'],
+            value: status,
         },
         {
             //ad_protection
