@@ -1,18 +1,18 @@
-**CRM Plugin for Pipedrive**
+# CRM Plugin for Pipedrive
 
 Table of contents:
 
-[[Download the plugin]](#download-the-plugin)
+-   [[Download the plugin]](#download-the-plugin)
 
-[[Installation guide]](#installation-guide)
+-   [[Installation guide]](#installation-guide)
 
-[[Setup the plugin]](#setup-the-plugin)
+-   [[Setup the plugin]](#setup-the-plugin)
 
-[[!NB]](#nb)
+-   [[!NB]](#nb)
 
-[[Setup the new version]](#setup-the-new-version)
+-   [[Setup the new version]](#setup-the-new-version)
 
-[[Usage]](#usage)
+-   [[Usage]](#usage)
 
 ## **Download the plugin**
 
@@ -29,13 +29,13 @@ In order to download the extension click
 
 4.  Choose 'Load unpacked' and choose in the prompted window the exported folder.
 
-![](doc/image1.png)
+<img src="doc/image1.png" width="100%">
 
 Extension now should be usable.
 
 ## **Setup the plugin**
 
-![](doc/image2.png)
+<img src="doc/image2.png" width="60%" height="440px">
 
 Provide your Pipedrive Company\'s API in here to proceed.
 
@@ -72,7 +72,7 @@ be filled in Pipedrive!
 
 You can change the API key in there at any time.
 
-![](doc/image3.png)
+<img src="doc/image3.png" width="60%" height="100px">
 
 ## **Setup the new version**
 
